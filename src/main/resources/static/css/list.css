@@ -1,0 +1,255 @@
+body {
+           font-family: 'Nanum Gothic', sans-serif;
+           background-color: rgb(240, 248, 255);
+           font-size: 12px;
+           line-height: 1.6;
+           padding: 20px;
+           color: #121212;
+           margin: 0;
+       }
+
+       .container {
+           margin: 0 auto;
+           background-color: #fff;
+           /* padding: 20px; */
+           border: 1px solid #ccc;
+           text-align: left;
+       }
+
+       .tab-container {
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+       border-bottom: 2px solid #ccc;
+       padding: 10px;
+       margin-bottom: 20px;
+       }
+
+       .tabs {
+           display: flex;
+           align-items: center;
+       }
+
+       .tab-button {
+           background-color: #fff;
+           border: 1px solid #ccc;
+           border-bottom: none;
+           padding: 10px 20px;
+           cursor: pointer;
+       }
+
+       .tab-button.active {
+           border-color: #000;
+           font-weight: bold;
+       }
+
+       .dropdown {
+           position: relative;
+           display: inline-block;
+       }
+
+       .dropbtn {
+           background-color: #fff;
+           border: 1px solid #ccc;
+           padding: 10px 20px;
+           cursor: pointer;
+       }
+
+       .dropdown-content {
+           display: none;
+           position: absolute;
+           background-color: #f9f9f9;
+           box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+           z-index: 1;
+           right: 0;
+       }
+
+       .dropdown-content a {
+           color: black;
+           padding: 12px 16px;
+           text-decoration: none;
+           display: block;
+       }
+
+       .dropdown-content a:hover {
+           background-color: rgb(240, 248, 255);
+       }
+
+       .dropdown:hover .dropdown-content {
+           display: block;
+       }
+
+       .selection-box, .choose-content, .sidebar-header a{
+           margin-bottom: 0px;
+       }
+
+       .choose-content, .choose-group{
+           flex: 1; /* 동일한 너비로 나란히 정렬 */
+       }
+
+       .choose-group {
+           margin: 10px;
+           display: inline-block;
+           padding: 1px;
+           background-color: #fff;
+           margin-left: 1px;
+           width:200px; /* 선택 상자 너비 조정 */
+       }
+
+       .choose-group select {
+           margin-left: 5px;
+           width: 90px;
+           padding: 5px;
+           font-size: 12px;
+       }
+
+
+       .sidebar {
+           width: 150px;
+           background-color: transparent;
+           color: black;
+           position: fixed;
+           left: 10px;
+           top: 100px;
+           margin-left: 20px;
+       }
+
+       .sidebar-header a {
+           display: block;
+           padding: 20px 40px;
+           text-align: center;
+           text-decoration: none;
+           color: black;
+           border: 1px solid black;
+           background-color: white;
+           border-radius: 4px;
+       }
+
+       .sidebar-header a:hover {
+           background-color: rgb(175, 219, 246);
+       }
+
+       .main-content {
+           margin-left: 180px; /* 사이드바 너비만큼 메인 콘텐츠를 오른쪽으로 밀어줌 */
+           margin-right: 180px; 
+           background-color: #fff;
+           padding: 20px;
+       }
+
+       .job-lists { 
+           margin-top: 20px;
+           border: 1px solid #ddd;
+           padding: 16px;
+           background-color: #fff;
+       }
+
+       .job-item {
+       display: flex;
+       justify-content: space-between; /* 요소들을 좌우로 분배 */
+       align-items: center; 
+       background-color: white;
+       border: 1px solid #ccc;
+       border-radius: 4px;
+       padding: 10px;
+       margin-bottom: 10px;
+       }
+
+       .job-info {
+           flex: 1; /* 남은 공간 모두를 차지 */
+       }
+
+       .job-actions {
+       display: flex;
+       align-items: center; /* 요소들을 수직으로 정렬 */
+       }
+
+       .job-title {
+           font-size: 16px;
+           margin-bottom: 5px;
+           font-weight: bold; /* 제목을 두드러지게 */
+       }
+
+       .company, .location {
+           color: #666;
+           margin-bottom: 5px;
+       }
+
+       .resume, .scrap-button {
+       padding: 8px 16px;
+       border: none;
+       border-radius: 4px;
+       cursor: pointer;
+       text-decoration: none;
+       background-color: rgb(240, 248, 255);
+       color: black;
+       margin-right: 10px;
+       }
+
+       
+       .job-title, .company, .job-title, .location{
+       /* border: 1px solid #666; */
+       width: 150px;
+       text-align: center;
+       margin-bottom: 10px;
+       }
+
+       .resume:hover {
+           background-color: rgb(175, 219, 246);
+       }
+
+       .scrap-button {
+           background-color: transparent;
+           color: #e7e7e7;
+           display: flex;
+           align-items: center;
+           border: none;
+           cursor: pointer;
+       }
+
+       .scrap-button i {
+           margin-left: 5px; /* 아이콘 왼쪽 여백 추가 */
+       }
+
+       .scrap-button.scrapped {
+           color: rgba(238, 238, 20, 0.63);
+       }
+
+       .div_page ul {
+       display: flex;
+       list-style: none;
+       justify-content: center; /* 가운데 정렬 */
+       padding: 0; /* 기본 padding 제거 */
+       }
+
+       .div_page ul li {
+           margin-right: 10px; /* 각 페이지 번호 사이의 간격 */
+       }
+
+       .div_page ul li:last-child {
+           margin-right: 0; /* 마지막 페이지 번호의 우측 마진 제거 */
+       }
+
+       .search-bar {
+           text-align: right;
+           margin-top: 10px;
+       }
+
+       .search-bar input {
+           padding: 10px;
+           background-color: #fff;
+           border: 1px solid #ccc;
+           border-radius: 8px;
+       }
+
+       .search-bar button {
+           padding: 6px 10px;
+           font-size: 12px;
+           border: none;
+           border-radius: 4px;
+           background-color: rgb(240, 248, 255);
+           cursor: pointer;
+       }
+
+       .search-bar button:hover {
+           background-color: rgb(175, 219, 246);
+       }

@@ -1,0 +1,225 @@
+    body {
+        font-family: 'Nanum Gothic', sans-serif;
+        background-color:rgb(240,248,255);
+        font-size:12px;
+        line-height:1.6;
+        padding: 20px;
+        color:#121212;
+        margin: 0;
+        justify-content: left;
+        }
+        .container {
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            text-align: left;
+            margin-left: 350px; /* 사이드바 너비만큼 메인 콘텐츠를 오른쪽으로 밀어줌 */
+            margin-right: 350px;
+        }
+        .main-content {
+            margin-left: 180px; /* 사이드바 너비만큼 메인 콘텐츠를 오른쪽으로 밀어줌 */
+            margin-right: 180px; 
+            background-color: #fff;
+            padding: 20px;
+        }
+        
+  /* 전체 컨테이너 스타일 */
+.table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px; /* 전체 높이 설정 */
+    margin-bottom: 200px;
+    margin-top: 70px;
+}
+
+/* 통합 테이블 스타일 */
+.custom-table, table {
+    font-size: 12px;
+    width: 100%; /* 테이블 너비 설정 */
+    /* border: 1px solid #ccc; */
+     /* 테이블 테두리 설정 */
+    border-collapse: collapse; /* 테이블 셀 경계를 합칩니다. */
+    table-layout: fixed; /* 테이블 너비 고정 */
+    margin-top: 15px; /* 테이블 위쪽 여백 설정 */
+}
+
+/* 셀 스타일 */
+.custom-table td, .table td, .custom-table th, table th {
+    padding: 8px; /* 셀 안 패딩 설정 */
+    text-align: left; /* 텍스트 가운데 정렬 */
+    vertical-align: middle; /* 셀 수직 가운데 정렬 */
+    border: 1px solid white; 
+    /* 셀 경계 설정 */
+}
+
+
+/* 첫 번째 행 셀 스타일 */
+.custom-table th, table th {
+    background-color: #f2f2f2; /* 테이블 헤더 배경색 설정 */
+    font-size: 12px; /* 테이블 헤더 글자 크기 설정 */
+}
+
+
+.company-posting {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+.company-title {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.company-info {
+    margin-left: 300px; /* 수정: 왼쪽 마진 조정 */
+    width: 300px; /* 수정: 너비 조정 */
+}
+
+.company-info p {
+    margin: 5px 0;
+}
+.job-content {
+    margin-left: 30px;
+}
+
+.job-description h2,
+.requirements h2,
+.how-to-apply h2 {
+    color: black;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.job-description p,
+.requirements ul,
+.how-to-apply p {
+    margin: 10px 0;
+    font-size: 15px;
+}
+
+.requirements ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+        .tab-button {
+            background-color: #fff;
+            border: 1px solid #333;
+            border-bottom: none;
+            padding: 15px 25px;
+            cursor: pointer;
+            color:gray;
+            font-size: 12px;
+        }
+        .tab-button:hover {
+        color: #000; /* 호버 시 텍스트 색상 */
+        }
+        
+        .tab-button.active {
+            border-color:black;
+            font-weight: bold;
+            color: black;
+        }
+        .btn {
+        background-color: rgb(240,248,255);
+        border: 1px solid white;
+        padding: 7px;
+        cursor: pointer;
+        margin-right: 10px;
+        font-size: 11px;
+        font-weight: bold;
+        }
+        .btn i{
+            background-color: transparent;
+            color: rgb(206, 206, 206);
+            align-items: center;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn i.scrapped {
+            color: rgb(114, 200, 253);
+        }
+        .company-container {
+        display: flex;
+        justify-content: space-between;
+        border: 1px solid white;
+    }
+    
+    .item {
+    text-align: left;
+    flex: 1;
+    font-size: 15px;
+    margin-right: 10px; /* 수정: 오른쪽 마진 조정 */
+    }
+    
+    .item:last-child {
+        margin-right: 0;
+    }
+    
+    .item b {
+        font-weight: bold;
+    }
+
+    .button-container {
+            display: flex;
+            justify-content: center;
+        }
+    .btnc {
+        padding: 10px 10px;
+        background-color: rgb(240,248,255);
+        color: black;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 10px;
+        margin: 0 10px;
+        font-weight: bold;
+    }
+        .job-actions {
+            margin-top: 20px;
+        }
+        .job-action {
+            margin-top: 20px;
+            display: flex;
+            align-items: center; /* 수직 가운데 정렬 */
+            margin-left: 600px;
+        }
+
+        .resume, .scrap-button {
+            margin-top: 20px;
+            display: flex;
+            align-items: center; /* 수직 가운데 정렬 */
+            padding: 16px 25px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            background-color: rgb(240, 248, 255);
+            color: black;
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+        .resume:hover {
+            background-color: rgb(175, 219, 246);
+        }
+        .scrap-button{
+            background-color: transparent;
+            border: 1px solid gray;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            color: #333;
+        }
+        .scrap-button i {
+            margin-right: 1px;
+            color: #ccc;
+        }
+        .scrap-button.scrapped i {
+            color: rgba(238, 238, 20, 0.63);
+        }

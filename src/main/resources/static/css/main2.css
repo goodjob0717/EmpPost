@@ -1,0 +1,117 @@
+nav {
+	position: fixed;
+	top: 5rem;
+	/* 헤더 바로 아래에 위치 */
+	width: 100%;
+	background: white;
+	z-index: 999;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	padding: 1 2rem;
+	/* 패딩 추가하여 왼쪽과 오른쪽 여백을 만듭니다 */
+	box-sizing: border-box;
+	/*	    패딩과 테두리를 포함한 전체 너비 및 높이 계산 */
+}
+
+nav ul {
+	list-style: none;
+	display: flex;
+	margin: 0;
+	padding: 0;
+	align-items: center;
+	/* 수직 정렬 */
+	flex: 1;
+	/* 링크가 나머지 영역을 차지하도록 */
+
+}
+
+nav ul li {
+	position: relative;
+	margin: 0 1rem;
+}
+
+nav ul li:hover .submenu {
+	display: block;
+}
+
+/*nav ul li:hover .submenu { */
+/*    display: none;  */
+/*	기본 상태에서는 서브메뉴를 보이지 않도록 설정 */
+/*}*/
+
+
+nav ul li a {
+	text-decoration: none;
+	color: black;
+	padding: 1rem;
+	display: block;
+	transition: color 0.3s;
+	/* 색상 변화에 부드러운 전환 추가 */
+}
+
+nav a:hover {
+	color: lightblue;
+	/* 마우스를 올렸을 때 글자색을 변경 (예: 파란색) */
+}
+
+
+.submenu {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	background: transparent;
+	/*	투명한 배경 */
+	min-width: 100px; 
+/*	줄 맞추기 이상해짐  */
+	/*	background: white;  서브메뉴 배경색을 흰색으로 설정 */
+	/*	   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  서브메뉴에 그림자 추가 */
+	z-index: 1000;
+	width: 100%; /* 상위 메뉴 항목과 동일한 너비 */
+
+}
+
+.submenu ul {
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	padding: 0;
+}
+
+.submenu ul li {
+	margin: 0;
+}
+
+.submenu ul li a {
+	padding: 0.5rem 1rem;
+}
+
+
+/* 로그인 및 회원가입 링크 스타일 */
+
+.nav-right {
+	display: flex;
+	/* Flexbox로 배치 */
+	margin-left: auto;
+	/* 왼쪽으로 밀어 오른쪽 끝으로 이동 */
+	align-items: center;
+	/* 수직 중앙 정렬 */
+}
+
+.nav-right a {
+	text-decoration: none;
+	color: black;
+	padding: 1rem;
+	display: block;
+	font-weight: bold;
+	/* 텍스트 강조 */
+}
+
+.nav-right a:hover {
+	color: #007BFF;
+	/* 마우스 오버 시 색상 변경 */
+}
+
+/* 로그인과 회원가입 링크 사이의 간격 조정 */
+/*.nav-right a:not(:last-child) {*/
+/*    margin-right: 1rem;  두 링크 사이의 간격 설정 */
+/*}*/

@@ -1,0 +1,56 @@
+body{
+      font-family: 'Nanum Gothic', sans-serif;
+      background-color:rgb(240,248,255);
+      font-size:12px;
+      line-height:1.6;
+      padding: 20px;
+      color:#121212;
+      margin: 0;
+  }
+
+  .container {
+          margin: 0 auto;
+          background-color: #fff;
+          padding: 20px;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          text-align: left;
+      }
+
+  .main-content {
+  background-color: #fff;
+  margin-left: 180px; /* 사이드바 너비만큼 메인 콘텐츠를 오른쪽으로 밀어줌 */
+  margin-right: 180px;
+  }
+
+      .custom-textarea {
+          height: 200px;
+          width: 600px;
+          resize: none;
+          padding: 10px;
+          font-size: 14px;
+          line-height: 1.5;
+          overflow-y: auto;
+      }
+      .custom-textarea:placeholder {
+      text-align: left; /* Placeholder를 왼쪽 정렬로 설정 */
+      color: #999; /* Placeholder의 색상 설정 */
+      }
+
+      .d-inline-flex{
+          cursor: pointer;
+      }
+      .btn-custom{
+          background-color: rgb(240,248,255);
+          color: black;
+          width: 90px;
+          height: 45px;
+          float:right;
+          margin-left: 10px;
+      }
+      .btn-custom:hover{
+          background-color: rgb(175,219,246);
+      }
+      .table {
+          font-size: 12px;
+      }
