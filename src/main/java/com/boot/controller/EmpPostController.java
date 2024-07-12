@@ -30,6 +30,7 @@ public class EmpPostController {
 
 	//채용공고리스트
 	@RequestMapping("/list_old")
+//	@RequestMapping("/list")
 	public String list(Model model) {
 		log.info("@# list");
 		

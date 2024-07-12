@@ -6,17 +6,17 @@
 <mapper namespace="com.boot.dao.EmpAttachDAO">
 
     <insert id="insertFile">        
-    insert into tbl_empAttach(uuid,uploadpath,filename,emp_paper,emp_postNo)
+    insert into empAttach(uuid,uploadpath,filename,emp_paper,emp_postNo)
  					values(#{uuid},#{uploadpath},#{filename},#{emp_paper},#{emp_postNo})
     </insert>
     
     <select id="getFilelist" resultType="com.boot.dto.EmpAttachDTO">
-		select uuid,uploadpath,filename,emp_paper,emp_postNo from tbl_empAttach where emp_postNo=#{emp_postNo}
+		select uuid,uploadpath,filename,emp_paper,emp_postNo from empAttach where emp_postNo=#{emp_postNo}
     </select>
   
   
   	<delete id="deleteFile">        
-		delete from tbl_empAttach where emp_postNo=#{emp_postNo}
+		delete from empAttach where emp_postNo=#{emp_postNo}
     </delete>
 </mapper>
 

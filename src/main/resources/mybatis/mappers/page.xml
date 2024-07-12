@@ -3,8 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.boot.dao.EmpPostDAO">
-<!--??-->
+<mapper namespace="com.boot.dao.PageDAO">
     <sql id="criteria">
         <if test='type == "T"'>
             where emp_title like concat('%', #{keyword}, '%')
@@ -32,13 +31,11 @@
 
     <select id="listWithPaging" resultType="com.boot.dto.EmpPostDTO">
         <![CDATA[
-            select rownum, emp_postNo, emp_duty, emp_stime, emp_etime, emp_workPlace, emp_type, emp_startDate, emp_endDate, emp_title, emp_content 
-            from (
-                select rownum, emp_postNo, emp_duty, emp_stime, emp_etime, emp_workPlace, emp_type, emp_startDate, emp_endDate, emp_title, emp_content 
-                from (
-                    select row_number() over(order by emp_postNo desc) as rownum,
-                           emp_postNo, emp_duty, emp_stime, emp_etime, emp_workPlace, emp_type, emp_startDate, emp_endDate, emp_title, emp_content 
-                    from tbl_empPost
+	select rownum,emp_postNo, emp_duty,emp_career,emp_status,emp_money, emp_stime, emp_etime, emp_workPlace, emp_type, emp_startDate, emp_endDate, emp_title, emp_content,corpInfo 
+		from (select rownum,emp_postNo, emp_duty,emp_career,emp_status,emp_money, emp_stime, emp_etime, emp_workPlace, emp_type, emp_startDate, emp_endDate, emp_title, emp_content,corpInfo 
+		from (select row_number() over(order by emp_postNo desc) as rownum
+									,emp_postNo, emp_duty,emp_career,emp_status,emp_money, emp_stime, emp_etime, emp_workPlace, emp_type, emp_startDate, emp_endDate, emp_title, emp_content,corpInfo 
+								  from empPost
         ]]>
         <include refid="criteria"/>
         <![CDATA[
@@ -51,7 +48,7 @@
     </select>
 
     <select id="getTotalCount" resultType="int">
-        select count(*) from tbl_empPost
+        select count(*) from empPost
         <include refid="criteria"/>
     </select>
 

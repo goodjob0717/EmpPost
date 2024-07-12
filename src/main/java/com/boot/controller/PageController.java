@@ -21,15 +21,18 @@ public class PageController {
 	private PageService service;
 
 	@RequestMapping("/list")
+//	@RequestMapping("/listWithPaging")
 	public String listWithPaging(Criteria cri, Model model) {
 		log.info("@# list");
 		log.info("@# PageController cri => "+cri);
 		
 		ArrayList<EmpPostDTO> list = service.listWithPaging(cri);
+//		int total = service.getTotalCount();
 		int total = service.getTotalCount(cri);
 		log.info("@# total => "+total);
 
 		model.addAttribute("list", list);
+//		model.addAttribute("pageMaker", new PageDTO(123, cri)); 123 : 총페이지갯수
 		model.addAttribute("pageMaker", new PageDTO(total, cri));
 		
 		return "list";

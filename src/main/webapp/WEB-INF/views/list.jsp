@@ -176,268 +176,147 @@
 
 	        </script>
 
-	        <div class="job-lists">
-	            <div class="job-list" data-list-id="1">
-	                <div class="job-item">
-	                    <div class="job-title">프론트엔드 개발자</div>
-	                    <div class="company">ABC 주식회사</div>
-	                    <div class="location">서울</div>
-	                    <div class="job-actions">
-	                        <a class="resume" href="#" onclick="openFileUploader()">지원하기</a>
-	                        <button class="scrap-button" data-job-id="1">
-	                            <i class="fas fa-star"></i>
-	                        </button>
-	                    </div>
-	                </div>
-	                <div class="job-item">
-	                    <div class="job-title">백엔드 개발자</div>
-	                    <div class="company">XYZ 기업</div>
-	                    <div class="location">경기</div>
-	                    <div class="job-actions">
-	                        <a class="resume" href="#" onclick="openFileUploader()">지원하기</a>
-	                        <button class="scrap-button" data-job-id="2">
-	                            <i class="fas fa-star"></i>
-	                        </button>
-	                    </div>
-	                </div>
-	            </div>
-	            
-	            <div class="job-list" data-list-id="2">
-	                <div class="job-item">
-	                    <div class="job-title">데이터 분석가</div>
-	                    <div class="company">123 데이터 연구소</div>
-	                    <div class="location">부산</div>
-	                    <div class="job-actions">
-	                        <a class="resume" href="#" onclick="openFileUploader()">지원하기</a>
-	                        <button class="scrap-button" data-job-id="3">
-	                            <i class="fas fa-star"></i>
-	                        </button>
-	                    </div>
-	                </div>
-	                <div class="job-item">
-	                    <div class="job-title">소프트웨어 엔지니어</div>
-	                    <div class="company">456 소프트</div>
-	                    <div class="location">대구</div>
-	                    <div class="job-actions">
-	                        <a class="resume" href="#" onclick="openFileUploader()">지원하기</a>
-	                        <button class="scrap-button" data-job-id="4">
-	                            <i class="fas fa-star"></i>
-	                        </button>
-	                    </div>
-	                </div>
-	            </div>
-	            
-	            <div class="job-list" data-list-id="3">
-	                <div class="job-item">
-	                    <div class="job-title">UI/UX 디자이너</div>
-	                    <div class="company">789 디자인</div>
-	                    <div class="location">인천</div>
-	                    <div class="job-actions">
-	                        <a class="resume" href="#" onclick="openFileUploader()">지원하기</a>
-	                        <button class="scrap-button" data-job-id="5">
-	                            <i class="fas fa-star"></i>
-	                        </button>
-	                    </div>
-	                </div>
-	                <div class="job-item">
-	                    <div class="job-title">프로젝트 매니저</div>
-	                    <div class="company">PM 솔루션</div>
-	                    <div class="location">광주</div>
-	                    <div class="job-actions">
-	                        <a class="resume" href="#" onclick="openFileUploader()">지원하기</a>
-	                        <button class="scrap-button" data-job-id="6">
-	                            <i class="fas fa-star"></i>
-	                        </button>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	        
+			  <!-- 선택choose-group -->
+		
+			  <script>
+				function addOption(selectId) {
+					// 선택된 select 요소 가져오기
+					var selectElement = document.getElementById(selectId);
+		
+					// 선택된 option의 값 가져오기
+					var selectedValue = selectElement.value;
+		
+					// 선택된 option의 텍스트 가져오기
+					var selectedText = selectElement.options[selectElement.selectedIndex].text;
+		
+					// 결과를 표시할 div 요소 가져오기
+					var resultDiv = document.getElementById('selectedOptions');
+		
+					// 새로운 option 생성 및 추가
+					if (selectedValue !== "선택안함") {
+						var newOption = document.createElement('div');
+						newOption.textContent = selectedText;
+						resultDiv.appendChild(newOption);
+					}
+				}
+				</script>
+
 <!--			지원하기 파일업로드-->
 <!-- 파일 업로드 모달 -->
 <div id="myModal" class="modal">
     <div class="modal-content">
-        <div class="modal-header">
-            <span class="close" onclick="closeFileUploader()">&times;</span>
-            <h3>이력서 가져오기</h3>
-        </div>
-        <div class="modal-body">
-            <form id="resumeForm" action="/upload" method="post" enctype="multipart/form-data">
-                <input type="file" id="resumeFile" name="resumeFile" class="file-input">
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button class="upload-button" onclick="uploadResume()">가져오기</button>
-        </div>
+        <span class="close" onclick="closeFileUploader()">&times;</span>
+        <h3>이력서 선택</h3>
+        <form id="resumeForm" enctype="multipart/form-data">
+            <input type="file" id="resumeFile" name="resumeFile" class="file-input">
+            <br>
+            <input type="checkbox" id="resumeCheckbox1" name="resumeCheckbox1">
+            <label for="resumeCheckbox1">이력서 파일 1: resume1.pdf</label><br>
+            <input type="checkbox" id="resumeCheckbox2" name="resumeCheckbox2">
+            <label for="resumeCheckbox2">이력서 파일 2: resume2.docx</label>
+            <br>
+            <button type="button" onclick="uploadResume()" style="background-color: rgb(240,248,255);">지원하기</button>
+        </form>
     </div>
 </div>
 
 <!-- JavaScript 코드 -->
 <script>
-    // 파일 업로드 모달 열기
-    function openFileUploader() {
-        var modal = document.getElementById('myModal');
-        modal.style.display = 'block';
-    }
-
-    // 파일 업로드 모달 닫기
-    function closeFileUploader() {
-        var modal = document.getElementById('myModal');
-        modal.style.display = 'none';
-    }
-
-    // 파일 업로드 함수
-    function uploadResume() {
-        var fileInput = document.getElementById('resumeFile');
-        var formData = new FormData();
-        formData.append('resumeFile', fileInput.files[0]);
-
-        // 실제 파일 업로드 처리를 위해 AJAX 또는 fetch 등을 사용할 수 있습니다.
-        // 여기서는 예시로 console에 파일 이름을 출력하고 모달을 닫습니다.
-        console.log('선택된 파일:', fileInput.files[0].name);
-        closeFileUploader();
-    }
-</script> <!-- 지원하기파일업로드끝-->
-			
-	        <!-- <div class="job-lists">
-	    <c:forEach var="jobList" items="${jobLists}">
-	        <div class="job-list" data-list-id="${jobList.id}">
-	            <c:forEach var="job" items="${jobList.jobs}">
-	                <div class="job-item">
-	                    <div class="job-title">${job.title}</div>
-	                    <div class="company">${job.company}</div>
-	                    <div class="location">${job.location}</div>
-	                    <div class="job-actions">
-	                        <a class="resume" href="/job/view/${job.id}">지원하기</a>
-	                        <button class="scrap-button" data-job-id="${job.id}">
-	                            <i class="fas fa-star"></i>
-	                        </button>
-	                    </div>
-	                </div>
-	            </c:forEach>
-	        </div>
-	    </c:forEach>
-	</div>
-	-->
-
-	        <!-- <div class="div_page"> 
-	            <ul>
-	                totalPage는 서버에서 계산된 전체 페이지 수를 나타내는 변수입니다.
-	                c:forEach 태그는 JSTL(JavaServer Pages Standard Tag Library)에서 제공하는 반복문입니다.
-	                <c:forEach begin="1" end="${totalPages}" var="page">
-	                    <li>
-	                        ?page=${page}은 페이지 링크를 동적으로 생성합니다.
-	                        <a href="?page=${page}">${page}</a>
-	                    </li>
-	                </c:forEach>
-	            </ul>
-	        </div> 
-	        -->
-	        <div class="div_page">
-	            <ul>
-	                <li><a href="?page=1">1</a></li>
-	                <li><a href="?page=2">2</a></li>
-	                <li><a href="?page=3">3</a></li>
-	                <li><a href="?page=4">4</a></li>
-	                <li><a href="?page=5">5</a></li>
-	                <li><a href="?page=5">Next></a></li>
-	            </ul>
-	        </div>
-	        
-	        
-	    </div>   
-	   </div>
-	    <!-- 선택choose-group -->
+	function openFileUploader() {
+		var modal = document.getElementById('myModal');
+		modal.style.display = "block";
+	}
+	
+	function closeFileUploader() {
+		var modal = document.getElementById('myModal');
+		modal.style.display = "none";
+	}
+	
+	function uploadResume() {
+		var fileInput = document.getElementById('resumeFile');
+		var checkbox1 = document.getElementById('resumeCheckbox1');
+		var checkbox2 = document.getElementById('resumeCheckbox2');
 		
-	    <script>
-	    function addOption(selectId) {
-	        // 선택된 select 요소 가져오기
-	        var selectElement = document.getElementById(selectId);
+		var selectedFiles = [];
+		
+		if (checkbox1.checked) {
+			selectedFiles.push("resume1.pdf");
+		}
+		if (checkbox2.checked) {
+			selectedFiles.push("resume2.docx");
+		}
+		
+		if (selectedFiles.length === 0) {
+			alert('이력서를 선택하여 지원을 확인해 주세요.');
+			return;
+		}
+		
+		// 여기서 실제로는 서버로 선택한 파일들을 업로드하는 로직을 추가할 수 있습니다.
+		
+		var message = "지원이 완료되었습니다.  선택한 이력서 파일: " + selectedFiles.join(", ");
+		alert(message);
+		
+		closeFileUploader(); // 업로드 완료 후 모달 창 닫기
+	}
+	</script> 
+	<!-- 지원하기파일업로드끝-->
 
-	        // 선택된 option의 값 가져오기
-	        var selectedValue = selectElement.value;
+ <div class="job-lists">
+    <c:forEach items="${list}" var="dto">
+        <div class="job-item">
+            <h2><b>${dto.emp_postNo}</b></h2>
+			<div class="job-title">${dto.emp_title}</div>
+            <div class="company">${dto.emp_duty}</div>
+            <div class="location">${dto.emp_workPlace}</div>
+            <div class="job-actions">
+                ${dto.emp_endDate}&nbsp;
+                <a class="resume" href="#" onclick="openFileUploader()">지원하기</a>
+                <button class="scrap-button" data-job-id="${dto.emp_postNo}">
+                    <i class="fas fa-star"></i> 
+                </button>
+            </div>
+        </div>
+    </c:forEach>
+</div>
 
-	        // 선택된 option의 텍스트 가져오기
-	        var selectedText = selectElement.options[selectElement.selectedIndex].text;
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+    const scrapButtons = document.querySelectorAll('.scrap-button');
 
-	        // 결과를 표시할 div 요소 가져오기
-	        var resultDiv = document.getElementById('selectedOptions');
+    scrapButtons.forEach(button => {
+        const jobId = button.getAttribute('data-job-id');
+        const isScrapped = localStorage.getItem(`scrapped_${jobId}`) === 'true';
 
-	        // 새로운 option 생성 및 추가
-	        if (selectedValue !== "선택안함") {
-	            var newOption = document.createElement('div');
-	            newOption.textContent = selectedText;
-	            resultDiv.appendChild(newOption);
-	        }
-	    }
+        // 초기 스크랩 상태 설정
+        if (isScrapped) {
+            button.classList.add('scrapped');
+        } else {
+            button.classList.remove('scrapped');
+        }
+    });
 
-	        //  function addOption(selectId) {
-	        //     const subCategorySelect = document.getElementById('subCategorySelect');
-	        //     subCategorySelect.innerHTML = ''; // Clear previous options
+    // 부모 요소에 클릭 이벤트 리스너 추가 (이벤트 위임)
+    document.addEventListener('click', function(event) {
+        const clickedElement = event.target;
 
-	        //     const categories = {
-	        //         "기획.전략": ["경영.비즈니스기획", "웹기획", "마케팅기획", "PL.PM.PO", "컨설턴트", "CEO.COO.CTO"],
-	        //         "개발.데이터": ["백엔드개발자", "프론트엔드개발자", "웹개발자", "앱개발자", "시스템엔지니어", "네트워크엔지니어"]
-	        //     };
+        if (clickedElement.classList.contains('scrap-button')) {
+            const jobId = clickedElement.getAttribute('data-job-id');
+            const isCurrentlyScrapped = clickedElement.classList.contains('scrapped');
 
-	        //     const selectedCategory = document.getElementById(selectId).value;
-
-	        //     if (categories[selectedCategory]) {
-	        //         categories[selectedCategory].forEach(subCat => {
-	        //             const option = document.createElement('option');
-	        //             option.value = subCat;
-	        //             option.textContent = subCat;
-	        //             subCategorySelect.appendChild(option);
-	        //         });
-	        //         subCategorySelect.disabled = false;
-	        //     } else {
-	        //         const option = document.createElement('option');
-	        //         option.value = "선택안함";
-	        //         option.textContent = "선택안함";
-	        //         subCategorySelect.appendChild(option);
-	        //         subCategorySelect.disabled = true;
-	        //     }
-	        // }
-	    </script>
-
-	<script>
-	    document.addEventListener('DOMContentLoaded', function() {
-	        const jobLists = document.querySelectorAll('.job-list');
-
-	        jobLists.forEach(jobList => {
-	            const scrapButtons = jobList.querySelectorAll('.scrap-button');
-
-	            scrapButtons.forEach(button => {
-	                const jobId = button.getAttribute('data-job-id');
-	                const isScrapped = localStorage.getItem(`scrapped_${jobId}`) === 'true';
-
-	                // 초기 스크랩 상태 설정
-	                if (isScrapped) {
-	                    button.classList.add('scrapped');
-	                } else {
-	                    button.classList.remove('scrapped');
-	                }
-
-	                // 클릭 이벤트 리스너 추가
-	                button.addEventListener('click', function() {
-	                    const isCurrentlyScrapped = button.classList.contains('scrapped');
-
-	                    // 스크랩 상태 토글
-	                    if (isCurrentlyScrapped) {
-	                        button.classList.remove('scrapped');
-	                        localStorage.setItem(`scrapped_${jobId}`, 'false');
-	                        alert('스크랩이 취소되었습니다.');
-	                    } else {
-	                        button.classList.add('scrapped');
-	                        localStorage.setItem(`scrapped_${jobId}`, 'true');
-	                        alert('스크랩 되었습니다.');
-	                    }
-	                });
-	            });
-	        });
-	    });
-	</script>
-
+            // 스크랩 상태 토글
+            if (isCurrentlyScrapped) {
+                clickedElement.classList.remove('scrapped');
+                localStorage.setItem(`scrapped_${jobId}`, 'false');
+                alert('스크랩이 취소되었습니다.');
+            } else {
+                clickedElement.classList.add('scrapped');
+                localStorage.setItem(`scrapped_${jobId}`, 'true');
+                alert('스크랩 되었습니다.');
+            }
+        }
+    });
+});
+</script>
 	    
 	    <script>    
 
@@ -500,6 +379,132 @@
 	            }
 	        }
 	    </script>
+		
+		<!-- Criteria를 이용해서 키워드 값을 넘김 -->
+		<!-- <input type="text" name="keyword" value="${pageMaker.cri.keyword}"> -->
+		<!-- <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> -->
+		 <!-- 전체 검색중 5페이지에서 22 키워드로 검색시 안나올때 처리 -->
+		<input type="hidden" name="pageNum" value="1">
+		<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+			
+			<h3>${pageMaker}</h3>
+			<div class="div_page">
+				<ul>
+					<c:if test="${pageMaker.prev}">
+						<!-- <li>[Previous]</li> -->
+						<li class="paginate_button">
+							<a href="${pageMaker.startpage-1}">
+								Previous
+							</a>
+						</li>
+					</c:if>
+					<c:forEach var="num" begin="${pageMaker.startpage}" end="${pageMaker.endpage}">
+						<!-- <li>[${num}]</li> -->
+						<!-- <li ${pageMaker.cri.pageNum== num?"style='color:red'":""}> -->
+							<!-- 현재페이지는 배경색 노란색으로 표시 -->
+						<li class="paginate_button" ${pageMaker.cri.pageNum== num ? "style='background-color:rgb(240,248,255);'":""}>
+							<!-- [${num}] -->
+							<a href="${num}">
+								${num}
+							</a>
+						</li>
+					</c:forEach>
+					<c:if test="${pageMaker.next}">
+						<!-- <li>[Next]</li> -->
+						<li class="paginate_button">
+							<a href="${pageMaker.endpage+1}">
+								Next
+							</a>
+						</li>
+					</c:if>
+				</ul>
+			</div>
+	
+			<!-- <form id="actionForm" method="get" action="listWithPaging"> -->
+			<!-- <form id="actionForm" method="get" action="list"> -->
+			<form id="actionForm" method="get">
+				<input type="hidden" name="pageNum" value=" ${pageMaker.cri.pageNum}">
+				<input type="hidden" name="amount" value=" ${pageMaker.cri.amount}">
+				<!-- 페이징 검색시 페이지 번호 클릭할때 필요한 파라미터 -->
+				<!-- <input type="hidden" name="type" value="${pageMaker.cri.type}">
+				<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}"> -->
+			</form>
+	
+	</body>
+	</html>
+	
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
+	<script>
+		var actionForm = $("#actionForm");
+		//페이지번호 처리
+		// $(".paginate_button").on("click",function(e){
+		$(".paginate_button a").on("click",function(e){
+			//기본동작막음 : 페이지 링크를 통해서 이동
+			e.preventDefault();
+			console.log("click~!!!");
+			console.log("@# href => "+$(this).attr("href"));
+			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+	
+			//게시글 클릭후 뒤로 가기 누른 후 다른 페이지 클릭할 때 &boardNo=번호 계속 누적되는거 방지
+			var bno = actionForm.find("input[name='emp_postNo']").val(); //content_view로 가기전의 글번호
+			if(bno != ""){
+				actionForm.find("input[name='emp_postNo']").remove();
+			}
+			// actionForm.submit();
+			actionForm.attr("action","list").submit();
+		});//end of paginate_button click
+	
+		//게시글처리
+		$(".move_link").on("click", function(e){
+			e.preventDefault();
+			// console.log("@# move_link click~!!!");
+			console.log("@# href => "+$(this).attr("href"));
+	
+			//게시글 클릭후 뒤로 가기 누른 후 다른 게시글 클릭할 때 &boardNo=번호 계속 누적되는거 방지
+			var bno = actionForm.find("input[name='emp_postNo']").val(); //content_view로 가기전의 글번호
+			if(bno != ""){
+				actionForm.find("input[name='emp_postNo']").remove();
+			}
+	
+			var targetBno = $(this).attr("href");
+			//"content_view?boardNo=${dto.boardNo}" 를 actionForm로 처리
+			actionForm.append("<input type='hidden' name='emp_postNo' value='"+targetBno+"'>");
+			// actionForm.submit();
+			//컨트롤러에 content_view로 찾아감
+			actionForm.attr("action","content_view").submit();
+	
+		}); //end of move_link click
+	
+
+		var searchForm = $("#searchForm");
+		//Search 버튼 클릭
+		// $("#searchForm").on("click",function(){
+		$("#searchForm button").on("click",function(){
+			// alert("검색");
+	
+			//아래는 검색종류할때 참고
+			// if(!searchForm.find("option:selected").val()){
+			// 	alert("검색종류를 선택하세요.");
+			// 	return false;
+			// }
+			
+			if(searchForm.find("option:selected").val() !="" && !searchForm.find("input[name='kword']").val()){
+				alert("키워드를 입력하세요.");
+				return false;
+			}
+			searchForm.attr("action","list").submit();
+		}); //end of searchForm click
+	
+		//type 콤보박스 변경
+		$("#searchForm select").on("change",function(){
+			//전체일때
+			if(searchForm.find("option:selected").val() == ""){
+				//키워드를 null값으로 변경
+				searchForm.find("input[name='kword']").val("");
+			}
+		});//end of  searchForm select change
+		
+	</script>
 <!--    <%@ include file="footer.jsp" %>-->
 </body>
 </html>

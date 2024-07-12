@@ -24,11 +24,11 @@
                 <a href="#">채용 공고</a>
                 <div class="submenu">
                     <ul>
-                        <li><a href="#">채용 공고</a></li>
-                        <li><a href="#">지역별</a></li>
-                        <li><a href="#">직무별</a></li>
-                        <li><a href="#">역세권별</a></li>
-                        <li><a href="#">TOP 100</a></li>
+                                <li><a href="/content">채용 공고</a></li>
+                                <li><a href="/content">지역별</a></li>
+                                <li><a href="/content">직무별</a></li>
+                                <li><a href="/content">역세권별</a></li>
+                                <li><a href="/content">TOP 100</a></li>
                     </ul>
                 </div>
             </li>

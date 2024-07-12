@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.boot.dto.Criteria;
 import com.boot.dto.EmpPostDTO;
+import com.boot.dto.PageDTO;
 
 
 public interface PageService {

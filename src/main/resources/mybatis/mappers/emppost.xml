@@ -7,34 +7,36 @@
 
 <!-- 	getUser -> 인터페이스에있는 메소드와 이름 같이 매칭 -->
     <select id="list" resultType="com.boot.dto.EmpPostDTO">
-       select emp_postNo, emp_duty, emp_stime, emp_etime, emp_workPlace, emp_type, emp_startDate, emp_endDate, emp_title, emp_content 
-       from tbl_empPost
+		select emp_postNo, emp_career, emp_status, emp_duty,emp_money, emp_stime, emp_etime, emp_workPlace, emp_type, emp_startDate, emp_endDate, emp_title, emp_content, corpInfo 
+		from empPost;
     </select>
     
     <insert id="contentpost">   
     	<selectKey keyProperty="emp_postNo" order="BEFORE" resultType="int">
-    		select ifnull(max(emp_postNo),0)+1 from tbl_empPost
+    		select ifnull(max(emp_postNo),0)+1 from empPost
     	</selectKey>
     	
 <!--emp_postNo, emp_duty, emp_stime, emp_etime, emp_workPlace, emp_type, emp_startDate, emp_endDate, emp_title, emp_content form tbl_empPost-->
-		  insert into tbl_empPost(emp_postNo, emp_duty, emp_stime, emp_etime, emp_workPlace, emp_type, emp_startDate, emp_endDate, emp_title, emp_content) 
-		  select ifnull(max(emp_postNo),0)+1,#{emp_duty},#{emp_stime},#{emp_etime},#{emp_workPlace},#{emp_type},#{emp_startDate},#{emp_endDate},#{emp_title},#{emp_content} 
-		  from tbl_empPost
+		  insert into empPost(emp_postNo, emp_career, emp_status, emp_duty,emp_money, emp_stime, emp_etime, emp_workPlace, emp_type, emp_startDate, emp_endDate, emp_title, emp_content, corpInfo) 
+		  select ifnull(max(emp_postNo),0)+1,#{emp_career},#{emp_status},#{emp_duty},#{emp_money},#{emp_stime},#{emp_etime},#{emp_workPlace},#{emp_type},#{emp_startDate},#{emp_endDate},#{emp_title},#{emp_content},#{corpInfo} 
+		  from empPost
     </insert>
     
     <select id="contentView" resultType="com.boot.dto.EmpPostDTO">
-       select emp_postNo, emp_duty, emp_stime, emp_etime, emp_workPlace, emp_type, emp_startDate, emp_endDate, emp_title, emp_content 
-       from tbl_empPost where emp_postNo=#{emp_postNo}
+       select emp_postNo, emp_career, emp_status, emp_duty,emp_money, emp_stime, emp_etime, emp_workPlace, emp_type, emp_startDate, emp_endDate, emp_title, emp_content, corpInfo 
+       from empPost where emp_postNo=#{emp_postNo}
     </select>
     
     <update id="modify">   
 <!--    boardName=#{boardName}     -->
-		update tbl_empPost set emp_duty=#{emp_duty}, emp_stime=#{emp_stime}, emp_etime=#{emp_etime}, emp_workPlace=#{emp_workPlace}, emp_type=#{emp_type}
-		, emp_startDate=#{emp_startDate}, emp_endDate=#{emp_endDate}, emp_title=#{emp_title}, emp_content=#{emp_content} where emp_postNo=#{emp_postNo}
+		update empPost set 
+		  emp_career=#{emp_career},emp_status=#{emp_status},emp_duty=#{emp_duty},emp_money=#{emp_money}, emp_stime=#{emp_stime}, emp_etime=#{emp_etime}, emp_workPlace=#{emp_workPlace}, emp_type=#{emp_type}
+		, emp_startDate=#{emp_startDate}, emp_endDate=#{emp_endDate}, emp_title=#{emp_title}
+		, emp_content=#{emp_content}, corpInfo=#{corpInfo} where emp_postNo=#{emp_postNo}
     </update>
 
     <delete id="delete">        
-		delete from tbl_empPost where emp_postNo=#{emp_postNo}
+		delete from empPost where emp_postNo=#{emp_postNo}
     </delete>
 
 </mapper>
