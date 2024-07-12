@@ -261,62 +261,64 @@
 	</script> 
 	<!-- 지원하기파일업로드끝-->
 
- <div class="job-lists">
-    <c:forEach items="${list}" var="dto">
-        <div class="job-item">
-            <h2><b>${dto.emp_postNo}</b></h2>
-			<div class="job-title">${dto.emp_title}</div>
-            <div class="company">${dto.emp_duty}</div>
-            <div class="location">${dto.emp_workPlace}</div>
-            <div class="job-actions">
-                ${dto.emp_endDate}&nbsp;
-                <a class="resume" href="#" onclick="openFileUploader()">지원하기</a>
-                <button class="scrap-button" data-job-id="${dto.emp_postNo}">
-                    <i class="fas fa-star"></i> 
-                </button>
+	<div class="job-lists">
+        <!-- 서버에서 전달받은 데이터로 반복 처리 -->
+        <c:forEach items="${list}" var="dto">
+            <div class="job-item">
+                <h2><b>${dto.emp_postNo}</b></h2>
+                <div class="job-title">${dto.emp_title}</div>
+                <div class="company">${dto.emp_duty}</div>
+                <div class="location">${dto.emp_workPlace}</div>
+                <div class="job-actions">
+                    ${dto.emp_endDate}&nbsp;
+                    <a class="resume" href="#" onclick="openFileUploader()">지원하기</a>
+                    <button class="scrap-button" data-job-id="${job.id}">
+                        <i class="fas fa-star"></i>
+                    </button>
+                </div>
             </div>
-        </div>
-    </c:forEach>
-</div>
+        </c:forEach>
+    </div>
 
-<script>
-	document.addEventListener('DOMContentLoaded', function() {
-    const scrapButtons = document.querySelectorAll('.scrap-button');
+    <!-- JavaScript 코드 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const scrapButtons = document.querySelectorAll('.scrap-button');
 
-    scrapButtons.forEach(button => {
-        const jobId = button.getAttribute('data-job-id');
-        const isScrapped = localStorage.getItem(`scrapped_${jobId}`) === 'true';
+            // 각 스크랩 버튼의 초기 상태 설정
+            scrapButtons.forEach(button => {
+                const jobId = button.getAttribute('data-job-id');
+                const isScrapped = localStorage.getItem(`scrapped_${jobId}`) === 'true';
 
-        // 초기 스크랩 상태 설정
-        if (isScrapped) {
-            button.classList.add('scrapped');
-        } else {
-            button.classList.remove('scrapped');
-        }
-    });
+                if (isScrapped) {
+                    button.classList.add('scrapped');
+                } else {
+                    button.classList.remove('scrapped');
+                }
+            });
 
-    // 부모 요소에 클릭 이벤트 리스너 추가 (이벤트 위임)
-    document.addEventListener('click', function(event) {
-        const clickedElement = event.target;
+            // 스크랩 버튼에 클릭 이벤트 리스너 추가 (이벤트 위임)
+            document.addEventListener('click', function() {
+                const isCurrentlyScrapped = button.classList.contains('scrapped');
 
-        if (clickedElement.classList.contains('scrap-button')) {
-            const jobId = clickedElement.getAttribute('data-job-id');
-            const isCurrentlyScrapped = clickedElement.classList.contains('scrapped');
+                if (clickedElement.classList.contains('scrap-button')) {
+                    const jobId = clickedElement.getAttribute('data-job-id');
+                    const isCurrentlyScrapped = clickedElement.classList.contains('scrapped');
 
-            // 스크랩 상태 토글
-            if (isCurrentlyScrapped) {
-                clickedElement.classList.remove('scrapped');
-                localStorage.setItem(`scrapped_${jobId}`, 'false');
-                alert('스크랩이 취소되었습니다.');
-            } else {
-                clickedElement.classList.add('scrapped');
-                localStorage.setItem(`scrapped_${jobId}`, 'true');
-                alert('스크랩 되었습니다.');
-            }
-        }
-    });
-});
-</script>
+                    // 스크랩 상태 토글
+                    if (isCurrentlyScrapped) {
+                        clickedElement.classList.remove('scrapped');
+                        localStorage.setItem(`scrapped_${jobId}`, 'false');
+                        alert('스크랩이 취소되었습니다.');
+                    } else {
+                        clickedElement.classList.add('scrapped');
+                        localStorage.setItem(`scrapped_${jobId}`, 'true');
+                        alert('스크랩 되었습니다.');
+                    }
+                }
+            });
+        });
+    </script>
 	    
 	    <script>    
 
