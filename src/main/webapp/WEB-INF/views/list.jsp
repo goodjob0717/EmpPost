@@ -128,80 +128,91 @@
 	            </select>
 	        </div>
 
-	        <div class="search-bar">
-	            <input type="text" id="search-keyword" placeholder="키워드를 입력하세요">
-	            <button onclick="addKeyword()">키워드 추가</button>
-	        </div>
+			<div class="search-bar">
+				<input type="text" id="search-keyword" placeholder="키워드를 입력하세요">
+				<button onclick="addKeyword()">키워드 추가</button>
+			</div>
+			<input type="hidden" id="keyword-input" name="keyword">
+			<div class="option-container" id="option-container">
+				<!-- 선택된 옵션들이 여기에 동적으로 추가됩니다 -->
+			</div>
+			
 
-	        <div class="option-container">
-	            <!-- 선택된 옵션들이 여기에 동적으로 추가됩니다 -->
-	        </div>
+			<script>
+				// 선택된 옵션들을 관리하는 배열
+				let selectedOptions = [];
 
-	        <div class="tab-container">
-	            <div class="tabs">
-	                <button class="tab-button active" data-sort="all">전체(54387):선택공고</button>
-	                <div class="dropdown">
-	                    <button class="dropbtn">▼ 최신순</button>
-	                    <div class="dropdown-content">
-	                        <a href="#" data-sort="latest">최신순</a>
-	                        <a href="#" data-sort="closing">마감일순</a>
-	                        <a href="#" data-sort="recommended">추천순</a>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    
-	        <script>
-	            document.addEventListener('DOMContentLoaded', function() {
-	            const tabButtons = document.querySelectorAll('.tab-button');
-	            const dropdownLinks = document.querySelectorAll('.dropdown-content a');
-
-	            tabButtons.forEach(button => {
-	                button.addEventListener('click', function() {
-	                    tabButtons.forEach(btn => btn.classList.remove('active'));
-	                    button.classList.add('active');
-	                    // 여기에 선택된 탭에 따른 기능 추가
-	                });
-	            });
-
-	            dropdownLinks.forEach(link => {
-	                link.addEventListener('click', function(event) {
-	                    event.preventDefault();
-	                    const sortType = link.getAttribute('data-sort');
-	                    // 여기에 선택된 정렬 타입에 따른 기능 추가
-	                    console.log(`Sorting by: ${sortType}`);
-	                });
-	            });
-	        });
-
-	        </script>
-
-			  <!-- 선택choose-group -->
-		
-			  <script>
+				// 옵션을 추가하는 함수
 				function addOption(selectId) {
-					// 선택된 select 요소 가져오기
-					var selectElement = document.getElementById(selectId);
-		
-					// 선택된 option의 값 가져오기
-					var selectedValue = selectElement.value;
-		
-					// 선택된 option의 텍스트 가져오기
-					var selectedText = selectElement.options[selectElement.selectedIndex].text;
-		
-					// 결과를 표시할 div 요소 가져오기
-					var resultDiv = document.getElementById('selectedOptions');
-		
-					// 새로운 option 생성 및 추가
-					if (selectedValue !== "선택안함") {
-						var newOption = document.createElement('div');
-						newOption.textContent = selectedText;
-						resultDiv.appendChild(newOption);
+					const selectElement = document.getElementById(selectId);
+					const optionValue = selectElement.value;
+					const optionText = selectElement.options[selectElement.selectedIndex].text;
+
+					// 중복 추가 방지
+					if (!selectedOptions.includes(optionText) && optionValue !== '선택안함' && optionValue !== '경력선택' && optionValue !== '학력선택') {
+						selectedOptions.push(optionText);
+
+						const optionContainer = document.getElementById('option-container');
+						const newOptionId = "option" + selectedOptions.length;
+						const newOptionItem = document.createElement("div");
+						newOptionItem.classList.add("option-item");
+						newOptionItem.id = newOptionId;
+						newOptionItem.innerHTML = `
+							<span>${optionText}</span>
+							<button class="btn-x" onclick="removeOption('${newOptionId}', '${optionText}')">x</button>
+						`;
+						optionContainer.appendChild(newOptionItem);
 					}
 				}
-				</script>
 
-<!--			지원하기 파일업로드-->
+				// 선택된 옵션을 삭제하는 함수
+				function removeOption(optionId, optionText) {
+					const optionElement = document.getElementById(optionId);
+					if (optionElement) {
+						const optionIndex = selectedOptions.indexOf(optionText);
+						if (optionIndex > -1) {
+							selectedOptions.splice(optionIndex, 1);
+						}
+						optionElement.remove();
+					}
+				}
+
+				// 키워드를 선택된 옵션에 추가하는 함수
+				function addKeyword() {
+					const keyword = document.getElementById("search-keyword").value.trim();
+					if (keyword !== "" && !selectedOptions.includes(keyword)) {
+						selectedOptions.push(keyword);
+
+						const optionContainer = document.getElementById('option-container');
+						const newOptionId = "option" + selectedOptions.length;
+						const newOptionItem = document.createElement("div");
+						newOptionItem.classList.add("option-item");
+						newOptionItem.id = newOptionId;
+						newOptionItem.innerHTML = `
+							<span>${keyword}</span>
+							<button class="btn-x" onclick="removeOption('${newOptionId}', '${keyword}')">x</button>
+						`;
+						optionContainer.appendChild(newOptionItem);
+
+						// Clear search keyword input
+						document.getElementById("search-keyword").value = "";
+
+						// Update hidden input value
+						updateHiddenInput();
+					} else {
+						alert("이미 선택된 옵션이거나 입력된 값이 비어 있습니다.");
+					}
+				}
+
+				// 히든 인풋 업데이트 함수
+				function updateHiddenInput() {
+					const hiddenInput = document.getElementById('keyword-input');
+					hiddenInput.value = selectedOptions.join(',');
+				}
+
+			</script>
+
+<!--지원하기 파일업로드-->
 <!-- 파일 업로드 모달 -->
 <div id="myModal" class="modal">
     <div class="modal-content">
@@ -280,7 +291,7 @@
         </c:forEach>
     </div>
 
-    <!-- JavaScript 코드 -->
+    <!-- 스크랩 코드 -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const scrapButtons = document.querySelectorAll('.scrap-button');
@@ -319,72 +330,10 @@
             });
         });
     </script>
-	    
-	    <script>    
-
-	        // 선택된 옵션들을 관리하는 배열
-	        let selectedOptions = [];
-
-	        // 옵션을 추가하는 함수
-	        function addOption(selectId) {
-	            const optionSelect = document.getElementById(selectId);
-	            const optionName = optionSelect.options[optionSelect.selectedIndex].value;
-
-	            // 중복 추가 방지
-	            if (!selectedOptions.includes(optionName) && optionName !== '경력선택' && optionName !== '학력선택' && optionName !== '') {
-	                selectedOptions.push(optionName);
-
-	                const optionContainer = document.querySelector('.option-container');
-	                const newOptionId = "option" + selectedOptions.length;
-	                const newOptionItem = document.createElement("div");
-	                newOptionItem.classList.add("option-item");
-	                newOptionItem.id = newOptionId;
-	                newOptionItem.innerHTML = `
-	                    <span>${optionName}</span>
-	                    <button class="btn-x" onclick="removeOption('${newOptionId}')">x</button>
-	                `;
-	                optionContainer.appendChild(newOptionItem);
-	            }
-	        }
-
-	        // 선택된 옵션을 삭제하는 함수
-	        function removeOption(optionId) {
-	            const optionElement = document.getElementById(optionId);
-	            if (optionElement) {
-	                const optionIndex = selectedOptions.indexOf(optionElement.textContent.trim());
-	                selectedOptions.splice(optionIndex, 1);
-	                optionElement.remove();
-	            }
-	        }
-
-	        // 키워드를 선택된 옵션에 추가하는 함수
-	        function addKeyword() {
-	            const keyword = document.getElementById("search-keyword").value.trim();
-	            if (keyword !== "" && !selectedOptions.includes(keyword)) {
-	                selectedOptions.push(keyword);
-
-	                const optionContainer = document.querySelector('.option-container');
-	                const newOptionId = "option" + selectedOptions.length;
-	                const newOptionItem = document.createElement("div");
-	                newOptionItem.classList.add("option-item");
-	                newOptionItem.id = newOptionId;
-	                newOptionItem.innerHTML = `
-	                    <span>${keyword}</span>
-	                    <button class="btn-x" onclick="removeOption('${newOptionId}')">x</button>
-	                `;
-	                optionContainer.appendChild(newOptionItem);
-
-	                // Clear search keyword input
-	                document.getElementById("search-keyword").value = "";
-	            } else {
-	                alert("이미 선택된 옵션이거나 입력된 값이 비어 있습니다.");
-	            }
-	        }
-	    </script>
 		
 		<!-- Criteria를 이용해서 키워드 값을 넘김 -->
-		<!-- <input type="text" name="keyword" value="${pageMaker.cri.keyword}"> -->
-		<!-- <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> -->
+		<input type="text" name="keyword" value="${pageMaker.cri.keyword}"> 
+		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
 		 <!-- 전체 검색중 5페이지에서 22 키워드로 검색시 안나올때 처리 -->
 		<input type="hidden" name="pageNum" value="1">
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
