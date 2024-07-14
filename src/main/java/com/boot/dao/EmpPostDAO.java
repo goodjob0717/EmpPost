@@ -2,21 +2,21 @@ package com.boot.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.boot.dto.Criteria;
 import com.boot.dto.EmpPostDTO;
 
 @Mapper
 public interface EmpPostDAO {
-	
-	public ArrayList<EmpPostDTO> list();
-	public void contentpost(EmpPostDTO postDTO); 
-	public EmpPostDTO contentView(HashMap<String, String> param);
-	public void modify(HashMap<String, String> param);
-	public void delete(HashMap<String, String> param);
-	}
+    ArrayList<EmpPostDTO> list();
+    void contentpost(EmpPostDTO postDTO); 
+    EmpPostDTO contentView(HashMap<String, String> param);
+    void modify(HashMap<String, String> param);
+    void delete(HashMap<String, String> param);
 
-// contentpost 
-// content
+    // 페이지네이션 및 검색 메서드 추가
+    ArrayList<EmpPostDTO> listWithPaging(Criteria cri);
+    int getTotalCount(Criteria cri);
+}

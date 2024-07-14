@@ -46,3 +46,22 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// Node.js 관련 태스크 추가
+task installNodeModules(type: Exec) {
+    workingDir 'src/main/js'
+    commandLine 'npm', 'install'
+}
+
+task startNodeServer(type: Exec, dependsOn: installNodeModules) {
+    workingDir 'src/main/js'
+    commandLine 'npm', 'start'
+}
+
+task stopNodeServer(type: Exec) {
+    // 서버를 종료하는 스크립트 추가 (옵션)
+}
+
+startNodeServer.mustRunAfter installNodeModules
+
+defaultTasks 'startNodeServer'
