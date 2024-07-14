@@ -1,38 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.boot.dao.EmpPostDAO">
-    <sql id="criteria">
-        <if test='type != null and type == "T"'>
-            where emp_title like concat('%', #{keyword}, '%')
-        </if>
-        <if test='type != null and type == "C"'>
-            where emp_content like concat('%', #{keyword}, '%')
-        </if>
-        <if test='type != null and type == "W"'>
-            where emp_workPlace like concat('%', #{keyword}, '%')
-        </if>
-        <if test='type != null and type == "TC"'>
-            where emp_title like concat('%', #{keyword}, '%')
-            or emp_content like concat('%', #{keyword}, '%')
-        </if>
-        <if test='type != null and type == "TW"'>
-            where emp_title like concat('%', #{keyword}, '%')
-            or emp_workPlace like concat('%', #{keyword}, '%')
-        </if>
-        <if test='type != null and type == "TCW"'>
-            where emp_title like concat('%', #{keyword}, '%')
-            or emp_content like concat('%', #{keyword}, '%')
-            or emp_workPlace like concat('%', #{keyword}, '%')
-        </if>
-    </sql>
 
-    <select id="listWithPaging" parameterType="com.boot.dto.Criteria" resultType="com.boot.dto.EmpPostDTO">
-        select * from emp_posts
-        <include refid="criteria" />
-        order by emp_postNo desc
-        limit #{pageStart}, #{amount}
+<!-- 	getUser -> 인터페이스에있는 메소드와 이름 같이 매칭 -->
+    <select id="list" resultType="com.boot.dto.EmpPostDTO">
+		select emp_postNo, emp_career, emp_status, emp_duty,emp_money, emp_stime, emp_etime, emp_workPlace, emp_type, emp_startDate, emp_endDate, emp_title, emp_content, corpInfo 
+		from empPost;
     </select>
+    
+    <insert id="contentpost">   
+    	<selectKey keyProperty="emp_postNo" order="BEFORE" resultType="int">
+    		select ifnull(max(emp_postNo),0)+1 from empPost
+    	</selectKey>
+    	
+<!--emp_postNo, emp_duty, emp_stime, emp_etime, emp_workPlace, emp_type, emp_startDate, emp_endDate, emp_title, emp_content form tbl_empPost-->
+		  insert into empPost(emp_postNo, emp_career, emp_status, emp_duty,emp_money, emp_stime, emp_etime, emp_workPlace, emp_type, emp_startDate, emp_endDate, emp_title, emp_content, corpInfo) 
+		  select ifnull(max(emp_postNo),0)+1,#{emp_career},#{emp_status},#{emp_duty},#{emp_money},#{emp_stime},#{emp_etime},#{emp_workPlace},#{emp_type},#{emp_startDate},#{emp_endDate},#{emp_title},#{emp_content},#{corpInfo} 
+		  from empPost
+    </insert>
+    
+    <select id="contentView" resultType="com.boot.dto.EmpPostDTO">
+       select emp_postNo, emp_career, emp_status, emp_duty,emp_money, emp_stime, emp_etime, emp_workPlace, emp_type, emp_startDate, emp_endDate, emp_title, emp_content, corpInfo 
+       from empPost where emp_postNo=#{emp_postNo}
+    </select>
+    
+    <update id="modify">   
+<!--    boardName=#{boardName}     -->
+		update empPost set 
+		  emp_career=#{emp_career},emp_status=#{emp_status},emp_duty=#{emp_duty},emp_money=#{emp_money}, emp_stime=#{emp_stime}, emp_etime=#{emp_etime}, emp_workPlace=#{emp_workPlace}, emp_type=#{emp_type}
+		, emp_startDate=#{emp_startDate}, emp_endDate=#{emp_endDate}, emp_title=#{emp_title}
+		, emp_content=#{emp_content}, corpInfo=#{corpInfo} where emp_postNo=#{emp_postNo}
+    </update>
 
-    <select id="getTotalCount" parameterType="com.boot.dto.Criteria" resultType="int">
-        select count(*) from emp_posts
-        <include refid="criteria" />
-    </select>
+    <delete id="delete">        
+		delete from empPost where emp_postNo=#{emp_postNo}
+    </delete>
+
 </mapper>
