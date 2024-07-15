@@ -22,6 +22,7 @@ public class EmpPostDTO {
 	private String emp_type; //고용형태(계약직 정규직 인턴)
 	private Timestamp emp_startDate;//공고 등록일
 	private Timestamp emp_endDate;//공고 마감일
+	private String emp_endDateStr; //추가 타임랩스마감일 -> 디비추가X
 	private String emp_title; //공고명
 	private String emp_content; //공고내용
 	private String corpInfo; //기업업종

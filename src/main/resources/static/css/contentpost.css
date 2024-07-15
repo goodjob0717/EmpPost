@@ -7,7 +7,11 @@ body{
       color:#121212;
       margin: 0;
   }
-
+  .wrap {
+    margin-top: 100px;
+    margin-left: 130px;
+    margin-right: 130px;
+    }
   .container {
           margin: 0 auto;
           background-color: #fff;

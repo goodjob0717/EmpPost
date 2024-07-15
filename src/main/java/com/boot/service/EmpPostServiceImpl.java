@@ -19,14 +19,18 @@ public class EmpPostServiceImpl implements EmpPostService{
 	@Autowired
 	private SqlSession sqlSession;
 	
+	@Autowired
+	private EmpPostService empPostService;
+	
 	@Override
 	public ArrayList<EmpPostDTO> list() {
 		log.info("@# EmpPostServiceImpl list");
+		log.info("Fetched list size: " + list().size()); // 리스트 크기 로그
 		
 		EmpPostDAO dao = sqlSession.getMapper(EmpPostDAO.class);
 		ArrayList<EmpPostDTO> list = dao.list();
 		
-		return list;	
+		return list;		
 	}
 
 	@Override
@@ -93,4 +97,9 @@ public class EmpPostServiceImpl implements EmpPostService{
 		attachDAO.deleteFile(param.get("emp_postNo"));
 		dao.delete(param);
 	}
+	
+    @Override
+    public void save(EmpPostDTO empPostDTO) {
+        empPostService.save(empPostDTO);
+    }
 }

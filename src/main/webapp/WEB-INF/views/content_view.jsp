@@ -3,6 +3,7 @@ content_view
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="header.jsp" %>
+<!-- <html xmlns:th="http://www.thymeleaf.org"> -->
 <html>
 <head>
 <meta charset="UTF-8">
@@ -27,17 +28,40 @@ content_view
 	<div class="wrap">
 		<div class="main-content">
 
-			<div class="flex-container">
-				<a href="list"><h2>채용공고</h2></a>
-				<div class="modbtn">
-					<!-- <button onclick="location.href='contentpost_view';">수정하기</button> -->
-					<form method="post" action="submit">
-<!--					<input type="submit" value="수정" formaction="empPostmodify">//-->
-					<input type="submit" value="수정" formaction="contentpost">
-					&nbsp;&nbsp;<input type="submit" value="삭제" formaction="empPostdelete">
-					</form>
-				</div>
-			</div>
+			<!-- <div class="flex-container">
+		    <a href="list"><h2>채용공고</h2></a>
+    <div class="modbtn" th:if="${corp_id != null}">
+        	수정 폼 
+        <form method="post" action="contentpost_view">
+            <input type="hidden" name="emp_postNo" value="${content_view.emp_postNo}">
+            <input type="submit" value="수정">
+        </form> -->
+
+        <!-- 삭제 폼 
+        <form method="post" action="empPostdelete">
+            <input type="hidden" name="emp_postNo" value="${content_view.emp_postNo}">
+            <input type="submit" value="삭제">
+        </form>
+    </div>
+			</div> -->
+
+<div class="flex-container">
+    <a href="list"><h2>채용공고</h2></a>
+    <div class="modbtn" th:if="${corp_id != null}">
+        <!-- 수정 폼 -->
+        <form method="post" action="content_view">
+            <input type="hidden" name="emp_postNo" value="${content_view.emp_postNo}">
+            <input type="submit" value="수정">
+        </form>
+
+        <!-- 삭제 폼 -->
+        <form method="post" action="empPostdelete">
+            <input type="hidden" name="emp_postNo" value="${content_view.emp_postNo}">
+            <input type="submit" value="삭제">
+        </form>
+    </div>
+</div>
+
 			
 	        <div class="table-container">
 	        <table class="custom-table">

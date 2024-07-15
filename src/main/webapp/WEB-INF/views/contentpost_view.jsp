@@ -216,10 +216,10 @@
                                         </tr>
                                         <th>근무 시간*</th>
                                         <td class="d-flex"><input class="form-control" type="time"
-                                                style="width: 110px;" name="startHour" id="startHour" value="09:00"
+                                                style="width: 110px;" name="emp_stime" id="startHour" value="09:00"
                                                 required>~
                                             <input class="form-control" type="time" style="width: 110px;"
-                                                name="endHour" id="endHour" value="18:00" required>
+                                                name="emp_etime" id="endHour" value="18:00" required>
                                         </td>
                                     </table>
                                 </div>
@@ -228,7 +228,7 @@
                             <div class="mt-4">
                                 <h4><b>마감 일자*</b></h4>
                                 <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
-                                    <input class="form-control" type="date" id="deadline" name="${emp_endDate}">
+                                    <input class="form-control" type="date" id="deadline" name="emp_endDate">
                                 </div>
                             </div>
                             <script>

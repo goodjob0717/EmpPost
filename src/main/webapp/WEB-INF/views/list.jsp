@@ -283,13 +283,15 @@
                         <a class="job-title" href="content_view?emp_postNo=${dto.emp_postNo}" style="color: black;">${dto.emp_title}</a>
                         <div class="company">${dto.emp_duty}</div>
                         <div class="location">${dto.emp_workPlace}</div>
-                        <div class="job-actions">
+                        <input type="text" id="emp_endDate" name="emp_endDateStr" value="${empPostDTO.emp_endDateStr}">
+                        <input type="submit" value="Save">
+
+                        <div class="job-actions"> 
                             
                             <%-- 현재 로그인한 사용자 ID 가져오기 --%>
                             <c:set var="currentUserId" value="${sessionScope.user_id}" />
                             
                             <c:if test="${dto.user_id == currentUserId}">
-                                ${dto.emp_endDate}&nbsp;
                                 <a class="resume" href="#" onclick="openFileUploader()">지원하기</a>
                                 <button data-emp-post-no="${dto.emp_postNo}" class="scrap-button">
                                     <i class="fas fa-star"></i>

@@ -35,5 +35,9 @@
     <delete id="delete">        
 		delete from empPost where emp_postNo=#{emp_postNo}
     </delete>
-
+	
+	    <insert id="save" parameterType="com.boot.dto.EmpPostDTO">
+        INSERT INTO empPost (emp_postNo, emp_title, emp_duty, emp_workPlace, emp_endDate)
+        VALUES (#{emp_postNo}, #{emp_title}, #{emp_duty}, #{emp_workPlace}, #{emp_endDate})
+    	</insert>
 </mapper>
