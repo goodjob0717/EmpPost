@@ -12,17 +12,22 @@ public class ScrapService {
     private ScrapDAO scrapDAO;
 
     public boolean toggleScrap(String jobId, boolean isScrapped) {
-        ScrapDTO scrapDTO = new ScrapDTO(jobId, getCurrentUserId());
+        String currentUserId = getCurrentUserId();
+        ScrapDTO scrapDTO = new ScrapDTO(jobId, currentUserId);
         return isScrapped ? scrapDAO.removeScrap(scrapDTO) : scrapDAO.addScrap(scrapDTO);
     }
 
     public boolean isScrapped(String jobId) {
-        ScrapDTO scrapDTO = new ScrapDTO(jobId, getCurrentUserId());
+        String currentUserId = getCurrentUserId();
+        ScrapDTO scrapDTO = new ScrapDTO(jobId, currentUserId);
         return scrapDAO.isScrapped(scrapDTO);
     }
 
     private String getCurrentUserId() {
-        // 현재 사용자의 ID를 반환하는 로직 추가
+        // 현재 사용자의 ID를 세션 또는 인증 정보에서 가져오는 로직을 구현해야 합니다.
+        // 예를 들어, Spring Security를 사용한다면 다음과 같이 구현할 수 있습니다:
+        // Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // return authentication.getName(); // 현재 사용자의 username을 반환하는 예시
         return "currentUserId"; // 실제 구현 필요
     }
 }

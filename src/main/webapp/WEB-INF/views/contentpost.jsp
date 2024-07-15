@@ -23,6 +23,9 @@
 </head>
 <body>
 	<div class="wrap">
+		<!-- // -->
+		<form id="frm" method="post" action="content">
+
 	    <div class="main-content">
 	    <div class="container d-flex">
 	        <br>
@@ -357,8 +360,8 @@
 	                            </div>
 	                            <form id="jobForm" action="submit.php" method="post">
 	                                <div class="text-center mb-5">
-	                                    <button type="submit" class="btn btn-custom" onclick="savePost()">임시//저장</button>
-	                                    <button type="submit" class="btn btn-custom" onclick="registerPost()">등//록</button>
+	                                    <button type="submit" class="btn btn-custom" onclick="savePost()">등록</button>
+	                                    <button type="submit" class="btn btn-custom" onclick="registerPost()">삭제</button>
 	                                </div>
 	                            </form>
 	            </div>
@@ -367,6 +370,7 @@
 	    </div>
 		</div>
 		</div>
+	</form>
 <!--    <%@ include file="footer.jsp" %>-->
 </body>
 </html>

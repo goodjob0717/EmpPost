@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -40,23 +41,23 @@ public class EmpPostController {
 		return "list";
 	}
 	
-	@RequestMapping("/contentpost") //?
+	@RequestMapping("/contentpost") //글작성누르면 contentpost로 넘어감
 //		public String write(@RequestParam HashMap<String, String> param) {
-		public String contentpost(EmpPostDTO postDTO) {
+		public String contentpost(EmpPostDTO empPostDTO) {
 		log.info("@# contentpost");
-		log.info("@# postDTO  => "+postDTO);
+		log.info("@# postDTO  => "+empPostDTO);
 		
 		//먼저 파악하기 위한 log
-		if (postDTO.getAttachList() != null) {
-			postDTO.getAttachList().forEach(attach -> log.info("@# attach =>"+attach));
+		if (empPostDTO.getAttachList() != null) {
+			empPostDTO.getAttachList().forEach(attach -> log.info("@# attach =>"+attach));
 		}
 		
-		service.write(postDTO);
+		service.write(empPostDTO);
 	
 		return "redirect:list";
 	}
 	
-	//글작성누르면넘어가는페이지,채용공고등록페이지
+
 	@RequestMapping("/contentpost_view")
 	public String contentpost_view() {
 		log.info("@# contentpost_view");
@@ -81,10 +82,10 @@ public class EmpPostController {
 	}
 	
 	//수정
-	@RequestMapping("/modify")
+	@RequestMapping("/empPostmodify")
 //		public String modify(@RequestParam HashMap<String, String> param) {
 		public String modify(@RequestParam HashMap<String, String> param, RedirectAttributes rttr) {
-		log.info("@# modify");
+		log.info("@# empPostmodify");
 		log.info("@# param => "+param);
 		
 		service.modify(param);
@@ -97,10 +98,10 @@ public class EmpPostController {
 	}
 	
 	//삭제
-	@RequestMapping("/delete")
+	@RequestMapping("/empPostdelete")
 //	public String delete(@RequestParam HashMap<String, String> param, Model model) {
 		public String delete(@RequestParam HashMap<String, String> param, Model model, RedirectAttributes rttr) {
-		log.info("@# delete");
+		log.info("@# empPostdelete");
 		log.info("@# param => "+param);
 		log.info("@# emp_postNo => "+param.get("emp_postNo"));
 		

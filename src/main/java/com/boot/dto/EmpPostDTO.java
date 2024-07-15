@@ -13,9 +13,9 @@ import lombok.NoArgsConstructor;
 public class EmpPostDTO {
 	private int emp_postNo; //채용공고번호
 	private String emp_duty; //직무
-	private int emp_career; //경력
+	private String emp_career; //경력
 	private String emp_status; //학력	
-	private int emp_money; 	
+	private int emp_money; 	//연봉
 	private String emp_stime; //근무시간start
 	private String emp_etime;//근무끝나는시간end
 	private String emp_workPlace; //근무지
@@ -25,10 +25,14 @@ public class EmpPostDTO {
 	private String emp_title; //공고명
 	private String emp_content; //공고내용
 	private String corpInfo; //기업업종
+	private String user_id;
 	
 	private List<EmpAttachDTO> attachList; //?
 	
 }
+
+//${content_view.emp_endDate}
+
 //create table empPost
 //(emp_postNo int primary key--
 //,emp_career int--

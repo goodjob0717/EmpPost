@@ -126,20 +126,68 @@
                 </select>
             </div>
 
-			<form action="${pageContext.request.contextPath}/search" method="get">
-				<div class="search-bar">
-					<select name="type">
-						<option value="T">제목</option>
-						<option value="C">내용</option>
-						<option value="W">근무지</option>
-						<option value="TC">제목 + 내용</option>
-						<option value="TW">제목 + 근무지</option>
-						<option value="TCW">제목 + 내용 + 근무지</option>
-					</select>
-					<input type="text" name="keyword" id="search-keyword" placeholder="키워드를 입력하세요">
-					<button type="submit">검색</button>
-				</div>
-			</form>		
+            <!-- 검색완료 -->
+            <form action="${pageContext.request.contextPath}/empsearch" method="get" id="searchForm">
+                <div class="search-bar">
+                    <select name="type">
+                        <option value="" ${pageMaker.cri.type == null ? 'selected' : ''}>전체</option>
+                        <option value="T" ${pageMaker.cri.type eq 'T' ? 'selected' : ''}>제목</option>
+                        <option value="C" ${pageMaker.cri.type eq 'C' ? 'selected' : ''}>내용</option>
+                        <option value="W" ${pageMaker.cri.type eq 'W' ? 'selected' : ''}>근무지</option>
+                        <option value="TC" ${pageMaker.cri.type eq 'TC' ? 'selected' : ''}>제목 or 내용</option>
+                        <option value="TW" ${pageMaker.cri.type eq 'TW' ? 'selected' : ''}>제목 or 근무지</option>
+                        <option value="TCW" ${pageMaker.cri.type eq 'TCW' ? 'selected' : ''}>제목 or 내용 or 근무지</option>
+                    </select>
+                    <input type="text" name="keyword" value="${pageMaker.cri.keyword}" id="search-keyword" placeholder="키워드를 입력하세요">
+                    <input type="hidden" name="pageNum" value="1">
+                    <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+                    <button type="submit">검색</button>
+                </div>
+            </form>
+        
+            <form id="actionForm" method="get">
+                <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+                <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+                <input type="hidden" name="type" value="${pageMaker.cri.type}">
+                <input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
+            </form>
+        
+            <script>
+                var actionForm = $("#actionForm");
+        
+                $(".paginate_button a").on("click", function(e){
+                    e.preventDefault();
+                    actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+                    var bno = actionForm.find("input[name='boardNo']").val();
+                    if(bno != ""){
+                        actionForm.find("input[name='boardNo']").remove();
+                    }
+                    actionForm.attr("action","list").submit();
+                });
+        
+                $(".move_link").on("click", function(e){
+                    e.preventDefault();
+                    var targetBno = $(this).attr("href");
+                    actionForm.append("<input type='hidden' name='boardNo' value='"+targetBno+"'>");
+                    actionForm.attr("action","content_view").submit();
+                });
+        
+                var searchForm = $("#searchForm");
+        
+                $("#searchForm button").on("click", function(e){
+                    if(searchForm.find("option:selected").val() !== "" && !searchForm.find("input[name='keyword']").val()){
+                        alert("키워드를 입력하세요.");
+                        return false;
+                    }
+                    searchForm.attr("action","list").submit();
+                });
+        
+                $("#searchForm select").on("change", function(){
+                    if(searchForm.find("option:selected").val() == ""){
+                        searchForm.find("input[name='keyword']").val("");
+                    }
+                });
+            </script>
 
             <input type="hidden" id="keyword-input" name="keyword">
             <div class="option-container" id="option-container">
@@ -226,24 +274,31 @@
 			</script>
 			</div>
 
-        <div class="job-lists">
-            <!-- 서버에서 전달받은 데이터로 반복 처리 -->
-            <c:forEach items="${list}" var="dto">
-                <div class="job-item">
-                    <h2><b>${dto.emp_postNo}</b></h2>
-                    <div class="job-title">${dto.emp_title}</div>
-                    <div class="company">${dto.emp_duty}</div>
-                    <div class="location">${dto.emp_workPlace}</div>
-                    <div class="job-actions">
-                        ${dto.emp_endDate}&nbsp;
-                        <a class="resume" href="#" onclick="openFileUploader()">지원하기</a>
-                        <button data-emp-post-no="${dto.emp_postNo}" class="scrap-button">
-                            <i class="fas fa-star"></i>
-                        </button>
+            <div class="job-lists">
+                <!-- 서버에서 전달받은 데이터로 반복 처리 -->
+                <c:forEach items="${list}" var="dto">
+                    <div class="job-item">
+                        <h2><b>${dto.emp_postNo}</b></h2>
+                        <!-- <div class="job-title">${dto.emp_title}</div> -->
+                        <a class="job-title" href="content_view?emp_postNo=${dto.emp_postNo}" style="color: black;">${dto.emp_title}</a>
+                        <div class="company">${dto.emp_duty}</div>
+                        <div class="location">${dto.emp_workPlace}</div>
+                        <div class="job-actions">
+                            
+                            <%-- 현재 로그인한 사용자 ID 가져오기 --%>
+                            <c:set var="currentUserId" value="${sessionScope.user_id}" />
+                            
+                            <c:if test="${dto.user_id == currentUserId}">
+                                ${dto.emp_endDate}&nbsp;
+                                <a class="resume" href="#" onclick="openFileUploader()">지원하기</a>
+                                <button data-emp-post-no="${dto.emp_postNo}" class="scrap-button">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            </c:if>
+                        </div>
                     </div>
-                </div>
-            </c:forEach>
-        </div>
+                </c:forEach>
+            </div>
 
         <!-- 파일 업로드 모달 -->
         <div id="myModal" class="modal">
@@ -265,68 +320,125 @@
 
         <!-- 스크랩 기능 관련 JavaScript -->
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const scrapButtons = document.querySelectorAll('.scrap-button');
+    	        document.addEventListener('DOMContentLoaded', function() {
+	            const scrapButtons = document.querySelectorAll('.scrap-button');
 
-                scrapButtons.forEach(button => {
-                    const empPostNo = button.getAttribute('data-emp-post-no');
-                    console.log(`empPostNo: ${empPostNo}`);
+	            scrapButtons.forEach(button => {
+	                const jobId = button.getAttribute('data-job-id');
+	                const isScrapped = localStorage.getItem(`scrapped_job_${jobId}`) === 'true';
 
-                    fetch(`http://localhost:8484/getScrapStatus?empPostNo=${empPostNo}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.isScrapped) {
-                                button.classList.add('scrapped');
-                            } else {
-                                button.classList.remove('scrapped');
-                            }
-                        })
-                        .catch(error => {
-                            console.error(`스크랩 상태 불러오기 중 오류 발생 (empPostNo: ${empPostNo}):`, error);
-                        });
-                });
+	                // 초기 스크랩 상태 설정
+	                if (isScrapped) {
+	                    button.classList.add('scrapped');
+	                }
 
-                document.addEventListener('click', function(event) {
-                    const clickedElement = event.target;
-                    let button;
+	                // 클릭 이벤트 리스너 추가
+	                button.addEventListener('click', function() {
+	                    const isCurrentlyScrapped = button.classList.contains('scrapped');
 
-                    if (clickedElement.classList.contains('scrap-button')) {
-                        button = clickedElement;
-                    } else if (clickedElement.parentElement && clickedElement.parentElement.classList.contains('scrap-button')) {
-                        button = clickedElement.parentElement;
-                    }
+	                    // 스크랩 상태 토글
+	                    if (isCurrentlyScrapped) {
+	                        button.classList.remove('scrapped');
+	                        localStorage.setItem(`scrapped_job_${jobId}`, 'false');
+	                        alert('스크랩이 해제되었습니다.');
+	                    } else {
+	                        button.classList.add('scrapped');
+	                        localStorage.setItem(`scrapped_job_${jobId}`, 'true');
+	                        alert('스크랩되었습니다.');
+	                    }
+	                });
+	            });
+	        });
+	    
+//     document.addEventListener('DOMContentLoaded', function() {
+//     const scrapButtons = document.querySelectorAll('.scrap-button');
 
-                    if (button) {
-                        const empPostNo = button.getAttribute('data-emp-post-no');
-                        const isCurrentlyScrapped = button.classList.contains('scrapped');
+//     // 스크랩 상태를 가져와서 설정하는 함수
+//     function setScrapStatus(button, empPostNo) {
+//         if (!empPostNo) {
+//             console.error('empPostNo가 설정되지 않았습니다.');
+//             return;
+//         }
 
-                        fetch('http://localhost:8484/toggleScrap', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ jobId: empPostNo, isScrapped: isCurrentlyScrapped }),
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    const message = isCurrentlyScrapped ? '스크랩이 취소되었습니다.' : '스크랩 되었습니다.';
-                                    alert(message);
+//         fetch(`http://localhost:8484/getScrapStatus?empPostNo=${empPostNo}`)
+//             .then(response => {
+//                 if (!response.ok) {
+//                     throw new Error(`스크랩 상태 불러오기 중 오류 발생 (empPostNo: ${empPostNo}): ${response.statusText}`);
+//                 }
+//                 return response.json();
+//             })
+//             .then(data => {
+//                 if (data.isScrapped) {
+//                     button.classList.add('scrapped');
+//                 } else {
+//                     button.classList.remove('scrapped');
+//                 }
+//             })
+//             .catch(error => {
+//                 console.error(error.message);
+//             });
+//     }
 
-                                    if (isCurrentlyScrapped) {
-                                        button.classList.remove('scrapped');
-                                    } else {
-                                        button.classList.add('scrapped');
-                                    }
-                                }
-                            })
-                            .catch(error => {
-                                console.error(`스크랩 토글 중 오류 발생 (empPostNo: ${empPostNo}):`, error);
-                            });
-                    }
-                });
-            });
+//     // 각 스크랩 버튼의 초기 상태를 설정
+//     scrapButtons.forEach(button => {
+//         const empPostNo = button.getAttribute('data-emp-post-no');
+//         console.log(`empPostNo: ${empPostNo}`);
+//         setScrapStatus(button, empPostNo);
+//     });
 
+//     // 스크랩 버튼 클릭 이벤트 처리
+//     document.addEventListener('click', function(event) {
+//         const clickedElement = event.target;
+//         let button;
+
+//         if (clickedElement.classList.contains('scrap-button')) {
+//             button = clickedElement;
+//         } else if (clickedElement.parentElement && clickedElement.parentElement.classList.contains('scrap-button')) {
+//             button = clickedElement.parentElement;
+//         }
+
+//         if (button) {
+//             const empPostNo = button.getAttribute('data-emp-post-no');
+//             if (!empPostNo) {
+//                 console.error('empPostNo가 설정되지 않았습니다.');
+//                 return;
+//             }
+//             const isCurrentlyScrapped = button.classList.contains('scrapped');
+
+//             fetch('http://localhost:8484/toggleScrap', {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify({ jobId: empPostNo, isScrapped: isCurrentlyScrapped }),
+//             })
+//                 .then(response => {
+//                     if (!response.ok) {
+//                         throw new Error(`스크랩 토글 중 오류 발생 (empPostNo: ${empPostNo}): ${response.statusText}`);
+//                     }
+//                     return response.json();
+//                 })
+//                 .then(data => {
+//                     if (data.success) {
+//                         const message = isCurrentlyScrapped ? '스크랩이 취소되었습니다.' : '스크랩 되었습니다.';
+//                         alert(message);
+
+//                         if (isCurrentlyScrapped) {
+//                             button.classList.remove('scrapped');
+//                         } else {
+//                             button.classList.add('scrapped');
+//                         }
+//                     }
+//                 })
+//                 .catch(error => {
+//                     console.error(error.message);
+//                 });
+//         }
+//     });
+// });
+ // <!-- 스크랩 기능 관련 JavaScript end-->
+
+//  이력서지원
             function openFileUploader() {
                 var modal = document.getElementById('myModal');
                 var resumeCheckbox1 = document.getElementById('resumeCheckbox1');
@@ -397,30 +509,35 @@
             };
         </script>
 
-<div class="div_page">
-    <ul>
-        <c:if test="${pageMaker.prev}">
-            <li class="paginate_button">
-                <a href="?pageNum=${pageMaker.startpage - 1}&amount=${pageMaker.cri.amount}">Previous</a>
-            </li>
-        </c:if>
-        <c:forEach var="num" begin="${pageMaker.startpage}" end="${pageMaker.endpage}">
-            <li class="paginate_button ${pageMaker.cri.pageNum eq num ? 'active' : ''}">
-                <a href="?pageNum=${num}&amount=${pageMaker.cri.amount}">${num}</a>
-            </li>
-        </c:forEach>
-        <c:if test="${pageMaker.next}">
-            <li class="paginate_button">
-                <a href="?pageNum=${pageMaker.endpage + 1}&amount=${pageMaker.cri.amount}">Next</a>
-            </li>
-        </c:if>
-    </ul>
-</div>
+        <div class="div_page">
+            <ul>
+                <c:if test="${pageMaker.prev}">
+                    <li class="paginate_button">
+                        <a href="?pageNum=${pageMaker.startpage - 1}&amount=${pageMaker.cri.amount}">Previous</a>
+                    </li>
+                </c:if>
+                <c:forEach var="num" begin="${pageMaker.startpage}" end="${pageMaker.endpage}">
+                    <li class="paginate_button ${pageMaker.cri.pageNum eq num ? 'active' : ''}">
+                        <a href="?pageNum=${num}&amount=${pageMaker.cri.amount}">${num}</a>
+                    </li>
+                </c:forEach>
+                <c:if test="${pageMaker.next}">
+                    <li class="paginate_button">
+                        <a href="?pageNum=${pageMaker.endpage + 1}&amount=${pageMaker.cri.amount}">Next</a>
+                    </li>
+                </c:if>
+            </ul>
+        </div>
 
         <form id="actionForm" method="get">
-            <input type="hidden" name="pageNum" value=" ${pageMaker.cri.pageNum}">
-            <input type="hidden" name="amount" value=" ${pageMaker.cri.amount}">
+            <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+            <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
         </form>
+    
+        <div colspan="5">
+        <!-- write_view : 컨트롤러단 호출 -->
+            <a href="contentpost_view" style="font-size: 14px;">글작성</a>
+        </div>
     </div>
 </body>
 </html>

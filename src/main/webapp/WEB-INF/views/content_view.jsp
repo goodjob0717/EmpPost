@@ -1,17 +1,19 @@
+content_view
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="header.jsp" %>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>채용 공고 content</title>
+<title>채용 공고 content보기</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/main.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/content.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/main2.css' />">
 
-<script>
+<!-- <script>
     $(document).ready(function(){
         $('header, nav').hover(function(){
             $('.submenu').stop(true, true).slideDown();
@@ -19,12 +21,24 @@
             $('.submenu').stop(true, true).slideUp();
         });
     });
-    </script>
+    </script> -->
 </head>
 <body>
 	<div class="wrap">
-	 <div class="main-content">
-	        <h2>채용공고</h2>
+		<div class="main-content">
+
+			<div class="flex-container">
+				<a href="list"><h2>채용공고</h2></a>
+				<div class="modbtn">
+					<!-- <button onclick="location.href='contentpost_view';">수정하기</button> -->
+					<form method="post" action="submit">
+<!--					<input type="submit" value="수정" formaction="empPostmodify">//-->
+					<input type="submit" value="수정" formaction="contentpost">
+					&nbsp;&nbsp;<input type="submit" value="삭제" formaction="empPostdelete">
+					</form>
+				</div>
+			</div>
+			
 	        <div class="table-container">
 	        <table class="custom-table">
 	            <tr style="border: 1px solid gray;">
@@ -44,7 +58,7 @@
 	                const companyId = button.parentElement.getAttribute('data-company-id');
 	                const isScrapped = localStorage.getItem(`scrapped_company_${companyId}`) === 'true';
 	    
-	                // 초기 스크랩 상태 설정
+	                // 초기 관심기업 상태 설정
 	                if (isScrapped) {
 	                    button.querySelector('i').classList.add('scrapped');
 	                }
@@ -53,7 +67,7 @@
 	                button.addEventListener('click', function() {
 	                    const isCurrentlyScrapped = button.querySelector('i').classList.contains('scrapped');
 	    
-	                    // 스크랩 상태 토글
+	                    // 관심기업 상태 토글
 	                    if (isCurrentlyScrapped) {
 	                        button.querySelector('i').classList.remove('scrapped');
 	                        localStorage.setItem(`scrapped_company_${companyId}`, 'false');
@@ -69,7 +83,7 @@
 	        </script>
 
 	    
-	        <h3 class="company-title">ABC 주식회사 프론트엔드 개발자 신입/경력 채용</h3>
+	    <h3 class="company-title">${content_view.emp_title}</h3>
 	    </td>
 	        <td rowspan="2">
 	        <div class="company-info">
@@ -118,11 +132,11 @@
 	                    <table>
 	                        <tr>
 	                            <td><b>경력</b></td>
-	                            <td>신입/경력</td>
+	                            <td>${content_view.emp_career}</td>
 	                        </tr>
 	                        <tr>
 	                            <td><b>학력</b></td>
-	                            <td>무관</td>
+	                            <td>${content_view.emp_status}</td>
 	                        </tr>
 	                        <tr>
 	                            <td><b>스킬</b></td>
@@ -151,15 +165,15 @@
 	                    <table>
 	                        <tr>
 	                            <td><b>고용형태</b></td>
-	                            <td>정규직/계약직</td>
+	                            <td>${content_view.emp_type}</td>
 	                        </tr>
 	                        <tr>
 	                            <td><b>급여</b></td>
-	                            <td>회사내규에 따름 - 면접 후 결정</td>
+	                            <td>연봉 ${content_view.emp_money}만원</td>
 	                        </tr>
 	                        <tr>
 	                            <td><b>지역</b></td>
-	                            <td>서울시
+	                            <td>${content_view.emp_workPlace}
 	                                <button class="btnc" onclick="addMarker()">지도 보기></button>
 	                            </td>
 	                        </tr>
@@ -174,13 +188,124 @@
 	</div>
 
 	<div class="job-actions">
-	    <div class="job-action">
-	    <a class="resume" href="/job/view/1">지원하기</a>
-	    <button class="scrap-button" data-job-id="1">
-	        <i class="fas fa-star"></i>스크랩
-	    </button>
+		<div class="job-action">
+			<%-- 현재 로그인한 사용자 ID 가져오기 --%>
+			<c:set var="currentUserId" value="${sessionScope.user_id}" />
+			
+			<c:if test="${dto.user_id == currentUserId}">
+				${dto.emp_endDate}&nbsp;
+				<a class="resume" href="#" onclick="openFileUploader()">지원하기</a>
+				<button data-emp-post-no="${dto.emp_postNo}" class="scrap-button">
+					<i class="fas fa-star"></i>스크랩
+				</button>
+			</c:if>
+		</div>
+	
+		<!-- 파일 업로드 모달 -->
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<span class="close" onclick="closeFileUploader()">&times;</span>
+				<h3>이력서 선택</h3>
+				<form id="resumeForm" enctype="multipart/form-data">
+					<input type="file" id="resumeFile" name="resumeFile" class="file-input">
+					<br>
+					<input type="checkbox" id="resumeCheckbox1" name="resumeCheckbox1">
+					<label for="resumeCheckbox1">이력서 파일 1: resume1.pdf</label><br>
+					<input type="checkbox" id="resumeCheckbox2" name="resumeCheckbox2">
+					<label for="resumeCheckbox2">이력서 파일 2: resume2.docx</label>
+					<br>
+					<button type="button" onclick="uploadResume()" style="background-color: rgb(240,248,255);">지원하기</button>
+				</form>
+			</div>
+		</div>
 	</div>
-	    <br>
+	
+	<script>
+		function openFileUploader() {
+			document.getElementById("myModal").style.display = "block";
+		}
+	
+		function closeFileUploader() {
+			document.getElementById("myModal").style.display = "none";
+		}
+	
+		function uploadResume() {
+			// 이력서 업로드 처리 로직 추가
+			alert("이력서가 업로드 되었습니다.");
+			closeFileUploader(); // 업로드 후 모달 닫기
+		}
+		
+		function openFileUploader() {
+                var modal = document.getElementById('myModal');
+                var resumeCheckbox1 = document.getElementById('resumeCheckbox1');
+                var resumeCheckbox2 = document.getElementById('resumeCheckbox2');
+                var fileInput = document.getElementById('resumeFile');
+
+                var appliedFiles = JSON.parse(localStorage.getItem('appliedFiles')) || [];
+
+                fileInput.value = '';
+                resumeCheckbox1.checked = false;
+                resumeCheckbox2.checked = false;
+
+                if (appliedFiles.includes('resume1.pdf')) {
+                    resumeCheckbox1.parentElement.style.display = 'none';
+                } else {
+                    resumeCheckbox1.parentElement.style.display = 'block';
+                }
+
+                if (appliedFiles.includes('resume2.docx')) {
+                    resumeCheckbox2.parentElement.style.display = 'none';
+                } else {
+                    resumeCheckbox2.parentElement.style.display = 'block';
+                }
+
+                modal.style.display = "block";
+            }
+
+            function closeFileUploader() {
+                var modal = document.getElementById('myModal');
+                modal.style.display = "none";
+            }
+
+            function uploadResume() {
+                var fileInput = document.getElementById('resumeFile');
+                var checkbox1 = document.getElementById('resumeCheckbox1');
+                var checkbox2 = document.getElementById('resumeCheckbox2');
+
+                var selectedFiles = [];
+
+                if (checkbox1.checked) {
+                    selectedFiles.push("resume1.pdf");
+                }
+                if (checkbox2.checked) {
+                    selectedFiles.push("resume2.docx");
+                }
+
+                if (fileInput.files.length > 0) {
+                    selectedFiles.push(fileInput.files[0].name);
+                }
+
+                if (selectedFiles.length === 0) {
+                    alert('이력서를 선택하여 지원을 확인해 주세요.');
+                    return;
+                }
+
+                var appliedFiles = JSON.parse(localStorage.getItem('appliedFiles')) || [];
+                appliedFiles = appliedFiles.concat(selectedFiles);
+                localStorage.setItem('appliedFiles', JSON.stringify(appliedFiles));
+
+                var message = "지원이 완료되었습니다. 선택한 이력서 파일: " + selectedFiles.join(", ");
+                alert(message);
+
+                closeFileUploader();
+            }
+
+            window.onload = function() {
+                localStorage.removeItem('appliedFiles');
+            };
+	</script>
+	
+					<br>
 
 	    <script>
 	        document.addEventListener('DOMContentLoaded', function() {
@@ -299,9 +424,9 @@
 	<div class="job-content">
 	        <div class="job-description">
 	            <h2>직무 내용</h2>
-	            <p>ABC 기술 주식회사에서는 프론트 엔드 개발자를 모집합니다. 이 직무는...</p>
+	            <p>${content_view.emp_content}</p>
 	        </div>
-	        <div class="requirements">
+	        <!-- <div class="requirements">
 	            <h2>자격 요건</h2>
 	            <ul>
 	                <li>신입 지원은 포트폴리오 필수</li>
@@ -309,33 +434,54 @@
 	                <li>JavaScript, HTML, CSS 능숙</li>
 	                <li>React 또는 Angular 프레임워크 경험 우대</li>
 	            </ul>
-	        </div>
+	        </div> -->
 	        <div class="how-to-apply">
 	            <h2>지원 방법</h2>
-	            <p>지원자는 이력서를 양식에 맞춰 제출해주시기 바랍니다.</p>
+	            <p>지원자는 이력서를 양식에 맞춰 제출해주시기 바랍니다.</p> 
 	        </div>
 
 	        <!-- 접수기간/방법 탭 -->
 	        <div id="tab2-content" class="tab-content">
 	           <div class="item">
 	               <b>접수기간</b><br>
-	               <p>2024년 7월 1일부터 2024년 7월 15일까지</p>
+				   <!-- 최대한달로 맞추기 안나옴****** -->
+	               <p>${contentpost.emp_startDate}부터 ${contentpost.emp_endDate}까지</p>
 	           </div>
 	           <div class="item">
 	               <b>접수방법</b><br>
-	               <p>온라인 지원서 작성 후 제출</p>
+	               <p>지원하기로 접수</p>
 	           </div>
 	        <!-- 추천공고 탭 -->
-	        <div id="tab3-content" class="tab-content">
-	            <div class="recommended-job">
-	                <h5>추천 공고</h5>
-	                <p>XYZ 기술 주식회사에서는 백엔드 개발자를 모집합니다. 자세한 정보는 <a href="#">링크</a>에서 확인하세요.</p>
-	            </div>
-	            <div class="recommended-job">
-	                <h5>추천 공고</h5>
-	                <p>DEF 소프트웨어에서는 데이터 분석가를 모집합니다. 자세한 정보는 <a href="#">링크</a>에서 확인하세요.</p>
-	            </div>
-	       </div>
+				<div id="tab3-content" class="tab-content">
+					<div class="recommended-job">
+						<h5>추천 공고</h5>
+						<p>XYZ 기술 주식회사에서는 백엔드 개발자를 모집합니다. 자세한 정보는 <a href="#">링크</a>에서 확인하세요.</p>
+					</div>
+					<div class="recommended-job">
+						<h5>추천 공고</h5>
+						<p>DEF 소프트웨어에서는 데이터 분석가를 모집합니다. 자세한 정보는 <a href="#">링크</a>에서 확인하세요.</p>
+					</div>
+				</div>
+
+				<script>
+					document.addEventListener('DOMContentLoaded', function() {
+						// 추천 공고 요소들을 모은 NodeList를 배열로 변환
+						const recommendedJobs = Array.from(document.querySelectorAll('.recommended-job'));
+
+						// 배열을 랜덤하게 섞기 위해 Fisher-Yates 알고리즘 사용
+						for (let i = recommendedJobs.length - 1; i > 0; i--) {
+							const j = Math.floor(Math.random() * (i + 1));
+							[recommendedJobs[i], recommendedJobs[j]] = [recommendedJobs[j], recommendedJobs[i]];
+						}
+
+						// 섞인 배열을 기반으로 DOM에 추가
+						const tab3Content = document.getElementById('tab3-content');
+						recommendedJobs.forEach(job => {
+							tab3Content.appendChild(job);
+						});
+					});
+				</script>
+
 	    </div>
 	</div>
 	</div>
