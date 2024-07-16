@@ -230,6 +230,7 @@
                                 <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
                                     <!-- <input class="form-control" type="date" id="deadline" name="emp_endDate"> -->
                                     <input class="form-control" type="date" id="deadline">
+                                    <!-- ${contentpost.emp_endDate}  가능성있음-->
                                     <!-- 2024-08-15 17:33:53 -->
                                 </div>
                             </div>

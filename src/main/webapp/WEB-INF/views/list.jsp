@@ -30,6 +30,7 @@
                 <a href="#"><b>TOP100</b></a>
             </div>
         </div>
+
         <div class="main-content">
             <div class="wrap">
                 <div class="choose-content">
@@ -56,10 +57,10 @@
                     <label for="optionSelectRegion"><b>지역 선택</b></label>
                     <select id="optionSelectRegion" name="지역" onchange="addOption('optionSelectRegion', 'region')">
                         <option value="선택안함">선택안함</option>
-                        <option value="서울">서울</option>
-                        <option value="경기">경기</option>
-                        <option value="부산">부산</option>
-                        <option value="대구">대구</option>
+                        <option value="서울시">서울시</option>
+                        <option value="경기시">경기시</option>
+                        <option value="부산시">부산시</option>
+                        <option value="대구시">대구시</option>
                     </select>
                 </div>
                 
@@ -97,10 +98,10 @@
                     <label for="optionSelectLocation"><b>역세권 선택</b></label>
                     <select id="optionSelectLocation" name="역세권" onchange="addOption('optionSelectLocation', 'location')">
                         <option value="선택안함">선택안함</option>
-                        <option value="강남">강남</option>
-                        <option value="홍대">홍대</option>
-                        <option value="건대">건대</option>
-                        <option value="잠실">잠실</option>
+                        <option value="강남역">강남역</option>
+                        <option value="홍대역">홍대역</option>
+                        <option value="건대역">건대역</option>
+                        <option value="잠실역">잠실역</option>
                     </select>
                 </div>
                 
@@ -179,7 +180,7 @@
         }
 
         function filterJobs() {
-            var jobItems = document.getElementsByClassName('job-item');
+            var jobItems = document.getElementsByClassName('job-item'); 
 
             for (var i = 0; i < jobItems.length; i++) {
                 var item = jobItems[i];
@@ -292,6 +293,27 @@
                 </div>
             </c:forEach>
         </div>
+        <!-- <div class="job-lists">
+            서버에서 전달받은 데이터로 반복 처리 
+            <c:forEach items="${list}" var="dto">
+                <div class="job-item">
+                    <h2><b>${dto.emp_postNo}</b></h2>
+                    <a class="job-title" href="content_view?emp_postNo=${dto.emp_postNo}&user_id=${user_id}&corp_id=${corp_id}" style="color: black;">${dto.emp_title}</a>
+                    <div class="company">${dto.emp_duty}</div>
+                    <div class="location">${dto.emp_workPlace}</div>
+                    <div class="endDate">2024-08-15 17:33:53</div>
+                    <div class="job-actions">
+                        <c:set var="currentUserId" value="${sessionScope.user_id}" />
+                        <c:if test="${dto.user_id == currentUserId}">
+                            <a class="resume" href="#" onclick="openFileUploader()">지원하기</a>
+                            <button data-emp-post-no="${dto.emp_postNo}" class="scrap-button">
+                                <i class="fas fa-star"></i>
+                            </button>
+                        </c:if>
+                    </div>
+                </div>
+            </c:forEach>
+        </div> -->
 
         <!-- 파일 업로드 모달 -->
         <div id="myModal" class="modal">
