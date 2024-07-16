@@ -16,11 +16,12 @@ public class ScrapController {
 
     @Autowired
     private ScrapService scrapService;
-    //??????????
+
     @GetMapping("/getScrapStatus")
     public ResponseEntity<Map<String, Boolean>> getScrapStatus(@RequestParam("empPostNo") Long empPostNo) {
         try {
             boolean isScrapped = scrapService.isScrapped(empPostNo);
+//            boolean isScrapped = scrapService.isScrapped(empPostNo2);
             Map<String, Boolean> response = new HashMap<>();
             response.put("isScrapped", isScrapped);
             return ResponseEntity.ok(response);
@@ -35,7 +36,7 @@ public class ScrapController {
         try {
             Long empPostNo = Long.valueOf(request.get("jobId").toString());
             boolean isScrapped = Boolean.valueOf(request.get("isScrapped").toString());
-            scrapService.toggleScrap(empPostNo, isScrapped);
+            scrapService.toggleScrap(empPostNo.toString(), isScrapped);
             Map<String, Boolean> response = new HashMap<>();
             response.put("success", true);
             return ResponseEntity.ok(response);

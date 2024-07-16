@@ -31,106 +31,182 @@
             </div>
         </div>
         <div class="main-content">
-            <div class="choose-content">
-                <select id="optionSelect1" onchange="addOption('optionSelect1')">
-                    <option value="경력선택">경력선택</option>
-                    <option value="신입">신입</option>
-                    <option value="1~3년">1~3년</option>
-                    <option value="4~6년">4~6년</option>
-                    <option value="경력무관">경력무관</option>
-                </select>
-            </div>
+            <div class="wrap">
+                <div class="choose-content">
+                    <select id="optionSelect1" name="경력" onchange="addOption('optionSelect1', 'career')">
+                        <option value="경력선택">경력선택</option>
+                        <option value="신입">신입</option>
+                        <option value="1~3년">1~3년</option>
+                        <option value="4~6년">4~6년</option>
+                        <option value="경력무관">경력무관</option>
+                    </select>
+                </div>
+                
+                <div class="choose-content">
+                    <select id="optionSelect2" name="학력" onchange="addOption('optionSelect2', 'education')">
+                        <option value="학력선택">학력선택</option>
+                        <option value="고등학교졸업">고등학교졸업</option>
+                        <option value="대학졸업(2,3년제)">대학졸업(2,3년제)</option>
+                        <option value="대학교졸업(4년제)">대학교졸업(4년제)</option>
+                        <option value="학력무관">학력무관</option>
+                    </select>
+                </div>
+                
+                <div class="choose-group">
+                    <label for="optionSelectRegion"><b>지역 선택</b></label>
+                    <select id="optionSelectRegion" name="지역" onchange="addOption('optionSelectRegion', 'region')">
+                        <option value="선택안함">선택안함</option>
+                        <option value="서울">서울</option>
+                        <option value="경기">경기</option>
+                        <option value="부산">부산</option>
+                        <option value="대구">대구</option>
+                    </select>
+                </div>
+                
+                <div class="choose-group">
+                    <label for="optionSelectJob"><b>직무 선택</b></label>
+                    <select id="optionSelectJob" name="직무" onchange="addOption('optionSelectJob', 'job')">
+                        <option value="선택안함">선택안함</option>
+                        <option value="기획.전략">기획·전략</option>
+                        <option value="개발.데이터">개발·데이터</option>
+                        <option value="인사.HR">인사·HR</option>
+                        <option value="마케팅.광고.MD">마케팅·광고·MD</option>
+                        <option value="디자인">디자인</option>
+                        <option value="운전.운송.배송">운전·운송·배송</option>
+                        <option value="고객상담.TM">고객상담·TM</option>
+                        <option value="법무.사무.총무">법무·사무·총무</option>
+                        <option value="회계.세무">회계·세무</option>
+                        <option value="물류.무역">물류·무역</option>
+                        <option value="영업">영업</option>
+                        <option value="금융.보험">금융·보험</option>
+                    </select>
+                </div>
+                
+                <div class="choose-group">
+                    <label for="optionSelectIndustry"><b>산업별 선택</b></label>
+                    <select id="optionSelectIndustry" name="산업" onchange="addOption('optionSelectIndustry', 'industry')">
+                        <option value="선택안함">선택안함</option>
+                        <option value="IT">IT</option>
+                        <option value="금융">금융</option>
+                        <option value="의료">의료</option>
+                        <option value="제조">제조</option>
+                    </select>
+                </div>
+                
+                <div class="choose-group">
+                    <label for="optionSelectLocation"><b>역세권 선택</b></label>
+                    <select id="optionSelectLocation" name="역세권" onchange="addOption('optionSelectLocation', 'location')">
+                        <option value="선택안함">선택안함</option>
+                        <option value="강남">강남</option>
+                        <option value="홍대">홍대</option>
+                        <option value="건대">건대</option>
+                        <option value="잠실">잠실</option>
+                    </select>
+                </div>
+                
+                <div class="choose-group">
+                    <label for="optionSelectSalary"><b>연봉별 선택</b></label>
+                    <select id="optionSelectSalary" name="연봉" onchange="addOption('optionSelectSalary', 'salary')">
+                        <option value="선택안함">선택안함</option>
+                        <option value="1000만원 이하">1000만원 이하</option>
+                        <option value="2000만원 이하">2000만원 이하</option>
+                        <option value="3000만원 이하">3000만원 이하</option>
+                        <option value="4000만원 이상">4000만원 이상</option>
+                    </select>
+                </div>
+                
+                <div class="choose-group">
+                    <label for="optionSelectPreference"><b>취업 우대사항 선택</b></label>
+                    <select id="optionSelectPreference" name="우대사항" onchange="addOption('optionSelectPreference', 'preference')">
+                        <option value="선택안함">선택안함</option>
+                        <option value="어학자격증">어학자격증</option>
+                        <option value="자격증 소지자">자격증 소지자</option>
+                        <option value="경력우대">경력우대</option>
+                        <option value="무경력 가능">무경력 가능</option>
+                    </select>
+                </div>
 
-            <div class="choose-content">
-                <select id="optionSelect2" onchange="addOption('optionSelect2')">
-                    <option value="학력선택">학력선택</option>
-                    <option value="고등학교졸업">고등학교졸업</option>
-                    <option value="대학졸업(2,3년제)">대학졸업(2,3년제)</option>
-                    <option value="대학교졸업(4년제)">대학교졸업(4년제)</option>
-                    <option value="학력무관">학력무관</option>
-                </select>
-            </div>
-			
-		<div class="wrap">
-            <div class="choose-group">
-                <label for="optionSelectRegion"><b>지역 선택</b></label>
-                <select id="optionSelectRegion" onchange="addOption('optionSelectRegion')">
-                    <option value="선택안함">선택안함</option>
-                    <option value="서울">서울</option>
-                    <option value="경기">경기</option>
-                    <option value="부산">부산</option>
-                    <option value="대구">대구</option>
-                </select>
-            </div>
+    <div id="result-list"></div>
 
-            <div class="choose-group">
-                <label for="optionSelectJob"><b>직무 선택</b></label>
-                <select id="optionSelectJob" onchange="addOption('optionSelectJob')">
-                    <option value="선택안함">선택안함</option>
-                    <option value="기획.전략">기획·전략</option>
-                    <option value="개발.데이터">개발·데이터</option>
-                    <option value="인사.HR">인사·HR</option>
-                    <option value="마케팅.광고.MD">마케팅·광고·MD</option>
-                    <option value="디자인">디자인</option>
-                    <option value="운전.운송.배송">운전·운송·배송</option>
-                    <option value="고객상담.TM">고객상담·TM</option>
-                    <option value="법무.사무.총무">법무·사무·총무</option>
-                    <option value="회계.세무">회계·세무</option>
-                    <option value="물류.무역">물류·무역</option>
-                    <option value="영업">영업</option>
-                    <option value="금융.보험">금융·보험</option>
-                </select>
-            </div>
+    <script>
+        var filters = {
+            career: null,
+            education: null,
+            region: null,
+            job: null,
+            industry: null,
+            location: null,
+            salary: null,
+            preference: null
+        };
 
-            <div class="choose-group">
-                <label for="optionSelectIndustry"><b>산업별 선택</b></label>
-                <select id="optionSelectIndustry" onchange="addOption('optionSelectIndustry')">
-                    <option value="선택안함">선택안함</option>
-                    <option value="IT">IT</option>
-                    <option value="금융">금융</option>
-                    <option value="의료">의료</option>
-                    <option value="제조">제조</option>
-                </select>
-            </div>
+        function addOption(selectId, filterKey) {
+            var selectElement = document.getElementById(selectId);
+            var selectedValue = selectElement.options[selectElement.selectedIndex].text;
+            var resultList = document.getElementById('result-list');
 
-            <div class="choose-group">
-                <label for="optionSelectLocation"><b>역세권 선택</b></label>
-                <select id="optionSelectLocation" onchange="addOption('optionSelectLocation')">
-                    <option value="선택안함">선택안함</option>
-                    <option value="강남">강남</option>
-                    <option value="홍대">홍대</option>
-                    <option value="건대">건대</option>
-                    <option value="잠실">잠실</option>
-                </select>
-            </div>
+            // Update filters object
+            filters[filterKey] = selectedValue;
 
-            <div class="choose-group">
-                <label for="optionSelectSalary"><b>연봉별 선택</b></label>
-                <select id="optionSelectSalary" onchange="addOption('optionSelectSalary')">
-                    <option value="선택안함">선택안함</option>
-                    <option value="1000만원 이하">1000만원 이하</option>
-                    <option value="2000만원 이하">2000만원 이하</option>
-                    <option value="3000만원 이하">3000만원 이하</option>
-                    <option value="4000만원 이상">4000만원 이상</option>
-                </select>
-            </div>
+            var optionId = 'filter-' + filterKey;
 
-            <div class="choose-group">
-                <label for="optionSelectPreference"><b>취업 우대사항 선택</b></label>
-                <select id="optionSelectPreference" onchange="addOption('optionSelectPreference')">
-                    <option value="선택안함">선택안함</option>
-                    <option value="어학자격증">어학자격증</option>
-                    <option value="자격증 소지자">자격증 소지자</option>
-                    <option value="경력우대">경력우대</option>
-                    <option value="무경력 가능">무경력 가능</option>
-                </select>
-            </div>
+            // Check if the filter already exists
+            var existingFilter = document.getElementById(optionId);
+            if (existingFilter) {
+                existingFilter.querySelector('.filter-text').innerText = selectedValue;
+            } else {
+                var optionElement = document.createElement("div");
+                optionElement.setAttribute("id", optionId);
+                optionElement.innerHTML = "<span class='filter-text'>" + selectedValue + "</span> <button onclick='removeOption(\"" + optionId + "\", \"" + filterKey + "\")'>x</button>";
+                resultList.appendChild(optionElement);
+            }
 
+            // Reset the select element to default value
+            selectElement.selectedIndex = 0;
+
+            filterJobs();
+        }
+
+        function removeOption(optionId, filterKey) {
+            // Remove the filter element
+            var optionElement = document.getElementById(optionId);
+            optionElement.remove();
+
+            // Reset the filter in the filters object
+            filters[filterKey] = null;
+
+            filterJobs();
+        }
+
+        function filterJobs() {
+            var jobItems = document.getElementsByClassName('job-item');
+
+            for (var i = 0; i < jobItems.length; i++) {
+                var item = jobItems[i];
+                var empDuty = item.querySelector('.company').innerText;
+                var empWorkPlace = item.querySelector('.location').innerText;
+                // Add other relevant fields as needed
+
+                var isMatch = true;
+                if (filters.career && filters.career !== '경력선택' && !empDuty.includes(filters.career)) isMatch = false;
+                if (filters.region && filters.region !== '선택안함' && !empWorkPlace.includes(filters.region)) isMatch = false;
+                // Add other filter checks as needed
+
+                if (isMatch) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            }
+        }
+    </script>
+
+    
             <!-- 검색완료 -->
             <form action="${pageContext.request.contextPath}/empsearch" method="get" id="searchForm">
                 <div class="search-bar">
                     <select name="type">
-                        <option value="" ${pageMaker.cri.type == null ? 'selected' : ''}>전체</option>
+                        <!-- <option value="" ${pageMaker.cri.type == null ? 'selected' : ''}>전체</option> -->
                         <option value="T" ${pageMaker.cri.type eq 'T' ? 'selected' : ''}>제목</option>
                         <option value="C" ${pageMaker.cri.type eq 'C' ? 'selected' : ''}>내용</option>
                         <option value="W" ${pageMaker.cri.type eq 'W' ? 'selected' : ''}>근무지</option>
@@ -151,7 +227,7 @@
                 <input type="hidden" name="type" value="${pageMaker.cri.type}">
                 <input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
             </form>
-        
+
             <script>
                 var actionForm = $("#actionForm");
         
@@ -193,114 +269,29 @@
             <div class="option-container" id="option-container">
                 <!-- 선택된 옵션들이 여기에 동적으로 추가됩니다 -->
             </div>
+		</div>
 
-			<script>
-				// 선택된 옵션들을 관리하는 배열
-				let selectedOptions = [];
-		
-				// 옵션을 추가하는 함수
-				function addOption(selectId) {
-					const selectElement = document.getElementById(selectId);
-					const optionValue = selectElement.value;
-					const optionText = selectElement.options[selectElement.selectedIndex].text;
-		
-					// 중복 추가 방지
-					if (!selectedOptions.includes(optionText) && optionValue !== '선택안함') {
-						selectedOptions.push(optionText);
-		
-						const optionContainer = document.getElementById('option-container');
-						const newOptionId = "option" + selectedOptions.length;
-						const newOptionItem = document.createElement("div");
-						newOptionItem.classList.add("option-item");
-						newOptionItem.id = newOptionId;
-						newOptionItem.innerHTML = `
-							<span>${optionText}</span>
-							<button class="btn-x" onclick="removeOption('${newOptionId}', '${optionText}')">X</button>
-						`;
-						optionContainer.appendChild(newOptionItem);
-		
-						// 히든 인풋 업데이트
-						updateHiddenInput();
-					}
-				}
-		
-				// 선택된 옵션을 삭제하는 함수
-				function removeOption(optionId, optionText) {
-					const optionElement = document.getElementById(optionId);
-					if (optionElement) {
-						const optionIndex = selectedOptions.indexOf(optionText);
-						if (optionIndex > -1) {
-							selectedOptions.splice(optionIndex, 1);
-						}
-						optionElement.remove();
-		
-						// 히든 인풋 업데이트
-						updateHiddenInput();
-					}
-				}
-		
-				// 키워드를 선택된 옵션에 추가하는 함수
-				function addKeyword() {
-					const keyword = document.getElementById("search-keyword").value.trim();
-					if (keyword !== "" && !selectedOptions.includes(keyword)) {
-						selectedOptions.push(keyword);
-		
-						const optionContainer = document.getElementById('option-container');
-						const newOptionId = "option" + selectedOptions.length;
-						const newOptionItem = document.createElement("div");
-						newOptionItem.classList.add("option-item");
-						newOptionItem.id = newOptionId;
-						newOptionItem.innerHTML = `
-							<span>${keyword}</span>
-							<button class="btn-x" onclick="removeOption('${newOptionId}', '${keyword}')">X</button>
-						`;
-						optionContainer.appendChild(newOptionItem);
-		
-						// Clear search keyword input
-						document.getElementById("search-keyword").value = "";
-		
-						// 히든 인풋 업데이트
-						updateHiddenInput();
-					} else {
-						alert("이미 선택된 옵션이거나 입력된 값이 비어 있습니다.");
-					}
-				}
-		
-				// 히든 인풋 업데이트 함수
-				function updateHiddenInput() {
-					const hiddenInput = document.getElementById('keyword-input');
-					hiddenInput.value = selectedOptions.join(',');
-				}
-			</script>
-			</div>
-
-            <div class="job-lists">
-                <!-- 서버에서 전달받은 데이터로 반복 처리 -->
-                <c:forEach items="${list}" var="dto">
-                    <div class="job-item">
-                        <h2><b>${dto.emp_postNo}</b></h2>
-                        <!-- <div class="job-title">${dto.emp_title}</div> -->
-                        <a class="job-title" href="content_view?emp_postNo=${dto.emp_postNo}" style="color: black;">${dto.emp_title}</a>
-                        <div class="company">${dto.emp_duty}</div>
-                        <div class="location">${dto.emp_workPlace}</div>
-                        <input type="text" id="emp_endDate" name="emp_endDateStr" value="${empPostDTO.emp_endDateStr}">
-                        <input type="submit" value="Save">
-
-                        <div class="job-actions"> 
-                            
-                            <%-- 현재 로그인한 사용자 ID 가져오기 --%>
-                            <c:set var="currentUserId" value="${sessionScope.user_id}" />
-                            
-                            <c:if test="${dto.user_id == currentUserId}">
-                                <a class="resume" href="#" onclick="openFileUploader()">지원하기</a>
-                                <button data-emp-post-no="${dto.emp_postNo}" class="scrap-button">
-                                    <i class="fas fa-star"></i>
-                                </button>
-                            </c:if>
-                        </div>
+        <div class="job-lists">
+            <!-- 서버에서 전달받은 데이터로 반복 처리 -->
+            <c:forEach items="${list}" var="dto">
+                <div class="job-item">
+                    <h2><b>${dto.emp_postNo}</b></h2>
+                    <a class="job-title" href="content_view?emp_postNo=${dto.emp_postNo}&user_id=${user_id}&corp_id=${corp_id}" style="color: black;">${dto.emp_title}</a>
+                    <div class="company">${dto.emp_duty}</div>
+                    <div class="location">${dto.emp_workPlace}</div>
+                    <div class="endDate">2024-08-15 17:33:53</div>
+                    <div class="job-actions">
+                        <c:set var="currentUserId" value="${sessionScope.user_id}" />
+                        <c:if test="${dto.user_id == currentUserId}">
+                            <a class="resume" href="#" onclick="openFileUploader()">지원하기</a>
+                            <button data-emp-post-no="${dto.emp_postNo}" class="scrap-button">
+                                <i class="fas fa-star"></i>
+                            </button>
+                        </c:if>
                     </div>
-                </c:forEach>
-            </div>
+                </div>
+            </c:forEach>
+        </div>
 
         <!-- 파일 업로드 모달 -->
         <div id="myModal" class="modal">

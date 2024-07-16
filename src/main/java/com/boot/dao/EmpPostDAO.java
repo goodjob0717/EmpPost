@@ -15,8 +15,12 @@ public interface EmpPostDAO {
     EmpPostDTO contentView(HashMap<String, String> param);
     void modify(HashMap<String, String> param);
     void delete(HashMap<String, String> param);
-
+    
     // 페이지네이션 및 검색 메서드 추가
     ArrayList<EmpPostDTO> listWithPaging(Criteria cri);
     int getTotalCount(Criteria cri);
+    
+    // 새로운 save 메서드 추가
+    void save(EmpPostDTO postDTO);
 }
+

@@ -6,10 +6,13 @@ import java.util.HashMap;
 import com.boot.dto.EmpPostDTO;
 
 public interface EmpPostService {
-	public ArrayList<EmpPostDTO> list();
-	public void write(EmpPostDTO empPostDTO);
-	public EmpPostDTO contentView(HashMap<String, String> param);
-	public void modify(HashMap<String, String> param);
-	public void delete(HashMap<String, String> param);
-	public void save(EmpPostDTO empPostDTO);
+    ArrayList<EmpPostDTO> list();
+    void write(EmpPostDTO postDTO);
+    EmpPostDTO contentView(HashMap<String, String> param);
+    void modify(HashMap<String, String> param);
+    void delete(HashMap<String, String> param);
+    void save(EmpPostDTO empPostDTO);
+
+    // user_id와 corp_id에 따른 contentView 메서드 추가
+    EmpPostDTO contentViewWithUserCorp(int empPostNo, String userId, String corpId);
 }

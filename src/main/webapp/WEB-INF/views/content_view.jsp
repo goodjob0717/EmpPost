@@ -47,7 +47,7 @@ content_view
 
 <div class="flex-container">
     <a href="list"><h2>채용공고</h2></a>
-    <div class="modbtn" th:if="${corp_id != null}">
+    <!-- <div class="modbtn" th:if="${corp_id != null}"> -->
         <!-- 수정 폼 -->
         <form method="post" action="content_view">
             <input type="hidden" name="emp_postNo" value="${content_view.emp_postNo}">
@@ -217,7 +217,8 @@ content_view
 			<c:set var="currentUserId" value="${sessionScope.user_id}" />
 			
 			<c:if test="${dto.user_id == currentUserId}">
-				${dto.emp_endDate}&nbsp;
+				<!-- ${dto.emp_endDate}&nbsp; -->
+				2024-08-15 17:33:53&nbsp;
 				<a class="resume" href="#" onclick="openFileUploader()">지원하기</a>
 				<button data-emp-post-no="${dto.emp_postNo}" class="scrap-button">
 					<i class="fas fa-star"></i>스크랩

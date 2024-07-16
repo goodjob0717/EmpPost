@@ -31,13 +31,18 @@
 <!--    boardName=#{boardName}     -->
 		update empPost set emp_career=#{emp_career},emp_status=#{emp_status},emp_duty=#{emp_duty},emp_money=#{emp_money}, emp_stime=#{emp_stime}, emp_etime=#{emp_etime}, emp_workPlace=#{emp_workPlace}, emp_type=#{emp_type}, emp_startDate=#{emp_startDate}, emp_endDate=#{emp_endDate}, emp_title=#{emp_title}, emp_content=#{emp_content}, corpInfo=#{corpInfo}, user_id=#{user_id} where emp_postNo=#{emp_postNo}
     </update>
+    
+    <update id="scrap">   
+		update scrap set user_id=#{user_id},corpInfo_No=#{corpInfo_No},emp_postNo=#{emp_postNo}
+    </update>
 
     <delete id="delete">        
 		delete from empPost where emp_postNo=#{emp_postNo}
     </delete>
 	
-	    <insert id="save" parameterType="com.boot.dto.EmpPostDTO">
-        INSERT INTO empPost (emp_postNo, emp_title, emp_duty, emp_workPlace, emp_endDate)
-        VALUES (#{emp_postNo}, #{emp_title}, #{emp_duty}, #{emp_workPlace}, #{emp_endDate})
-    	</insert>
+    <insert id="save" parameterType="com.boot.dto.EmpPostDTO">
+        INSERT INTO empPost (emp_postNo,emp_career,emp_status,emp_duty,emp_money,emp_stime,emp_etime,emp_workPlace,emp_type,emp_startDate,emp_endDate,emp_title,emp_content,corpInfo,user_id,corp_id)
+        VALUES (#{emp_postNo},#{emp_career},#{emp_status},#{emp_duty},#{emp_money},#{emp_stime},#{emp_etime},#{emp_workPlace},#{emp_type},#{emp_startDate},#{emp_endDate},#{emp_title},#{emp_content},#{corpInfo},#{user_id},#{corp_id})
+    </insert>
+
 </mapper>

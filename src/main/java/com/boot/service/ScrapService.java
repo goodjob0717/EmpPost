@@ -17,9 +17,9 @@ public class ScrapService {
         return isScrapped ? scrapDAO.removeScrap(scrapDTO) : scrapDAO.addScrap(scrapDTO);
     }
 
-    public boolean isScrapped(String jobId) {
+    public boolean isScrapped(Long jobId) {
         String currentUserId = getCurrentUserId();
-        ScrapDTO scrapDTO = new ScrapDTO(jobId, currentUserId);
+        ScrapDTO scrapDTO = new ScrapDTO(jobId.toString(), currentUserId);
         return scrapDAO.isScrapped(scrapDTO);
     }
 

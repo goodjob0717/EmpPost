@@ -228,7 +228,9 @@
                             <div class="mt-4">
                                 <h4><b>마감 일자*</b></h4>
                                 <div class="border border-tertiary p-3 d-inline-flex me-3 mb-3 w-100">
-                                    <input class="form-control" type="date" id="deadline" name="emp_endDate">
+                                    <!-- <input class="form-control" type="date" id="deadline" name="emp_endDate"> -->
+                                    <input class="form-control" type="date" id="deadline">
+                                    <!-- 2024-08-15 17:33:53 -->
                                 </div>
                             </div>
                             <script>
@@ -241,6 +243,7 @@
                                 deadlineInput.setAttribute('max', maxDate);
                             </script>
                             <br>
+
                             <!-- 스킬시작  ?-->
                             <div class="mt-4">
                                 <h4><b>스킬</b></h4>
@@ -263,45 +266,32 @@
                                     <!-- 추가된 스킬을 보여줄 공간 -->
                                 </div>
                             </div>
-                        
                             <script>
-                                let selectedSkills = [];
-                        
                                 function addSkill() {
                                     var skillSelect = document.getElementById("skillOptions");
-                                    var skillName = skillSelect.value;
-                                    if (!selectedSkills.includes(skillName)) {
-                                        selectedSkills.push(skillName);
-                                        renderSkills();
-                                    } else {
-                                        alert("이미 선택된 스킬입니다.");
+                                    var selectedSkill = skillSelect.options[skillSelect.selectedIndex].text;
+                                    var selectedSkills = document.getElementById("selectedSkills");
+                        
+                                    var skillId = 'skill-' + selectedSkill.replace(/\s+/g, '-');
+                        
+                                    // Check if the skill already exists
+                                    if (!document.getElementById(skillId)) {
+                                        var skillElement = document.createElement("div");
+                                        skillElement.setAttribute("id", skillId);
+                                        skillElement.className = 'skill-item';
+                                        skillElement.innerHTML = selectedSkill + " <button onclick='removeSkill(\"" + skillId + "\")'>x</button>";
+                                        selectedSkills.appendChild(skillElement);
                                     }
+                        
+                                    // Reset the select element to default value
+                                    skillSelect.selectedIndex = 0;
                                 }
                         
-                                function removeSkill(skillName) {
-                                    var index = selectedSkills.indexOf(skillName);
-                                    if (index > -1) {
-                                        selectedSkills.splice(index, 1);
-                                        renderSkills();
-                                    }
-                                }
-                        
-                                function renderSkills() {
-                                    var skillContainer = document.getElementById("selectedSkills");
-                                    skillContainer.innerHTML = "";
-                        
-                                    selectedSkills.forEach(function(skillName) {
-                                        var skillItem = document.createElement("div");
-                                        skillItem.classList.add("skill-item", "mb-2", "me-2", "p-2");
-                                        skillItem.innerHTML = `
-                                            <span class="me-2">${skillName}</span>
-                                            <button class="btn-x" type="button" onclick="removeSkill('${skillName}')">x</button>
-                                        `;
-                                        skillContainer.appendChild(skillItem);
-                                    });
+                                function removeSkill(skillId) {
+                                    var skillElement = document.getElementById(skillId);
+                                    skillElement.remove();
                                 }
                             </script>
-                            <!-- 스킬끝 -->
                             
                             <br>
                             <div>
