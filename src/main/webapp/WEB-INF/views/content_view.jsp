@@ -45,24 +45,37 @@ content_view
     </div>
 			</div> -->
 
-<div class="flex-container">
+<!-- <div class="flex-container">
     <a href="list"><h2>채용공고</h2></a>
-    <!-- <div class="modbtn" th:if="${corp_id != null}"> -->
-        <!-- 수정 폼 -->
+    <div class="modbtn" th:if="${corp_id != null}">
+        수정 폼
         <form method="post" action="content_view">
             <input type="hidden" name="emp_postNo" value="${content_view.emp_postNo}">
             <input type="submit" value="수정">
         </form>
 
-        <!-- 삭제 폼 -->
+        삭제 폼
         <form method="post" action="empPostdelete">
             <input type="hidden" name="emp_postNo" value="${content_view.emp_postNo}">
             <input type="submit" value="삭제">
         </form>
     </div>
+</div> -->
+
+<div class="flex-container">
+    <a href="list"><h2>채용공고</h2></a>
+    <div class="modbtn">
+        <form method="post" action="contentAction">
+            <input type="hidden" name="emp_postNo" value="${dto.emp_postNo}">
+            <input type="hidden" name="pageNum" value="${pageNum}">
+            <input type="hidden" name="amount" value="${amount}">
+            <input type="submit" name="action" value="수정">
+            <input type="submit" name="action" value="삭제">
+        </form>
+    </div>
 </div>
 
-			
+
 	        <div class="table-container">
 	        <table class="custom-table">
 	            <tr style="border: 1px solid gray;">

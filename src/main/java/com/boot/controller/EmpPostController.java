@@ -92,14 +92,15 @@ public class EmpPostController {
         EmpPostDTO dto = service.contentViewWithUserCorp(empPostNo, userId, corpId);
         model.addAttribute("dto", dto);
 
-        if ("someUserId".equals(userId)) {
-            return "userSpecificView";
-        } else if ("someCorpId".equals(corpId)) {
+        if ("user_id".equals("user_id")) {
+            return "content_view";
+        } else if ("corp_id".equals("corp_id")) {
             return "corpSpecificView";
         } else {
-            return "defaultView";
+            return "content_view";
         }
     }
+
 
     @RequestMapping("/empPostmodify")
     public String modify(@RequestParam HashMap<String, String> param, RedirectAttributes rttr) {
